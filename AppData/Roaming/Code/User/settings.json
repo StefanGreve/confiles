@@ -1,0 +1,61 @@
+{
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.cursorBlinking": "smooth",
+    "editor.linkedEditing": true,
+    "editor.renderWhitespace": "all",
+    "editor.renderLineHighlight": "none",
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        80,
+        120,
+        160
+    ],
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 4,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "git.inputValidationSubjectLength": 72,
+    "telemetry.enableTelemetry": false,
+    "extensions.ignoreRecommendations": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.settings.editor": "json",
+    "workbench.sideBar.location": "right",
+    "workbench.activityBar.visible": true,
+    "window.menuBarVisibility": "hidden",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "[python]": {
+        "editor.formatOnSave": false
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "latex-workshop.view.pdf.viewer": "tab",
+    // Windows 10 Settings
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "args": [
+                "-nologo"
+            ]
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        }
+    }
+}
