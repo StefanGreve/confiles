@@ -1,5 +1,11 @@
 $global:psrc = "$Home\Documents\WindowsPowerShell\profile.ps1"
 
+#region Environment Variables
+
+$env:VIRTUAL_ENV_DISABLE_PROMPT = 1
+
+#endregion
+
 #region Aliases
 
 function Invoke-Anonfile {
@@ -13,6 +19,8 @@ function Update-Configuration {
 }
 
 Set-Alias -Name config -Value Update-Configuration
+
+Set-Alias -Name activate -Value ./venv/Scripts/Activate.ps1
 
 #endregion
 
@@ -47,6 +55,11 @@ function prompt {
 
     if (Test-Path .git) {
         Write-BranchName
+    }
+
+    if ($env:VIRTUAL_ENV) {
+        $VenvPrompt = ([System.IO.Path]::GetFileName($env:VIRTUAL_ENV))
+        Write-Host " ($VenvPrompt)" -NoNewline -ForegroundColor Yellow
     }
 
     return $userPrompt
