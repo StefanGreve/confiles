@@ -11,7 +11,7 @@
             "hidden": false,
             "acrylicOpacity": 0.8,
             "backgroundImageOpacity": 0.5,
-            "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\blackhole.jpg",
+            "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
             "cursorColor": "#FFFFFF",
             "cursorShape": "bar",
             "fontFace": "Consolas",
@@ -28,8 +28,8 @@
                 "name": "PowerShell",
                 "tabTitle": "PowerShell",
                 "commandline": "powershell.exe -nologo",
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminal\\powershell.png",
-                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\blackhole.jpg",
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
                 "hidden": false
             },
             {
@@ -37,7 +37,7 @@
                 "name": "Command Prompt",
                 "tabTitle": "CMD",
                 "commandline": "cmd.exe",
-                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\ruins.jpg",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\ruins.jpg",
                 "hidden": false
             },
             {
@@ -46,7 +46,7 @@
                 "tabTitle": "Python",
                 "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
                 "icon": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\DLLs\\py.ico",
-                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\leviatan.jpg",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\leviatan.jpg",
                 "hidden": false
             }
         ]
