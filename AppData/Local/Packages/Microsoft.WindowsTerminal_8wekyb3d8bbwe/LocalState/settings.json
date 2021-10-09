@@ -71,23 +71,34 @@
         {
             "command": {
                 "action": "splitPane",
-                "split": "vertical"
-            },
-            "keys": "alt+shift+plus"
-        },
-        {
-            "command": {
-                "action": "splitPane",
                 "split": "horizontal"
             },
-            "keys": "alt+shift+-"
+            "keys": "ctrl+shift+-"
         },
         {
             "command": {
                 "action": "splitPane",
-                "split": "auto"
+                "split": "vertical"
             },
-            "keys": "alt+shift+|"
+            "keys": "ctrl+shift+|"
+        },
+        {
+            "command": "closePane",
+            "keys": [
+                "ctrl+shift+w"
+            ]
+        },
+        {
+            "command": "closeTab",
+            "keys": [
+                "ctrl+w"
+            ]
+        },
+        {
+            "command": "newTab",
+            "keys": [
+                "ctrl+t"
+            ]
         }
     ]
 }
