@@ -1,0 +1,93 @@
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "copyOnSelect": true,
+    "copyFormatting": false,
+    "profiles": {
+        "defaults": {
+            "guid": "{7783cf0d-3d2d-4be8-91dc-bc7e523250e4}",
+            "name": "PowerShell",
+            "commandline": "powershell.exe -nologo",
+            "hidden": false,
+            "acrylicOpacity": 0.8,
+            "backgroundImageOpacity": 0.5,
+            "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\blackhole.jpg",
+            "cursorColor": "#FFFFFF",
+            "cursorShape": "bar",
+            "fontFace": "Consolas",
+            "fontSize": 12,
+            "historySize": 9001,
+            "padding": "0, 0, 0, 0",
+            "snapOnInput": true,
+            "startingDirectory": "%USERPROFILE%",
+            "useAcrylic": true
+        },
+        "list": [
+            {
+                "guid": "{7783cf0d-3d2d-4be8-91dc-bc7e523250e4}",
+                "name": "PowerShell",
+                "tabTitle": "PowerShell",
+                "commandline": "powershell.exe -nologo",
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminal\\powershell.png",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\blackhole.jpg",
+                "hidden": false
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "Command Prompt",
+                "tabTitle": "CMD",
+                "commandline": "cmd.exe",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\ruins.jpg",
+                "hidden": false
+            },
+            {
+                "guid": "{6ee2d370-4f6a-4a55-a0ad-8afdbc68d6ca}",
+                "name": "Python",
+                "tabTitle": "Python",
+                "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+                "icon": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\DLLs\\py.ico",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\leviatan.jpg",
+                "hidden": false
+            }
+        ]
+    },
+    "schemes": [],
+    "actions": [
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "vertical"
+            },
+            "keys": "alt+shift+plus"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "horizontal"
+            },
+            "keys": "alt+shift+-"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto"
+            },
+            "keys": "alt+shift+|"
+        }
+    ]
+}
