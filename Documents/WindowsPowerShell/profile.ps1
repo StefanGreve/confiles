@@ -42,12 +42,12 @@ function prompt {
     $path = "$($executionContext.SessionState.Path.CurrentLocation)"
     $userPrompt = "`n$('>' * ($nestedPromptLevel + 1)) "
 
+    Write-Host $path -NoNewline -ForegroundColor Green
+    Write-Host ']' -NoNewline
+
     if (Test-Path .git) {
         Write-BranchName
     }
-
-    Write-Host $path -NoNewline -ForegroundColor Green
-    Write-Host ']' -NoNewline
 
     return $userPrompt
 }
