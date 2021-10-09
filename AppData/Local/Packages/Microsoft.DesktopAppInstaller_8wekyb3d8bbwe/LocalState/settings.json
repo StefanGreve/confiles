@@ -1,0 +1,18 @@
+{
+    "visual": {
+        "progressBar": "retro"
+    },
+    "installBehavior": {
+        "preferences": {
+            "locale": [
+                "en-US"
+            ]
+        }
+    },
+    "telemetry": {
+        "disable": false
+    },
+    "experimentalFeatures": {
+        "dependencies": true
+    }
+}
