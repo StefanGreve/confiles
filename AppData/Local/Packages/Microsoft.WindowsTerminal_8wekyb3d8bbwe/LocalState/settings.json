@@ -9,7 +9,7 @@
             "name": "PowerShell",
             "commandline": "powershell.exe -nologo",
             "hidden": false,
-            "acrylicOpacity": 0.8,
+            "acrylicOpacity": 1,
             "backgroundImageOpacity": 0.5,
             "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
             "cursorColor": "#FFFFFF",
@@ -20,7 +20,7 @@
             "padding": "0, 0, 0, 0",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": true
+            "useAcrylic": false
         },
         "list": [
             {
@@ -47,6 +47,15 @@
                 "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
                 "icon": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\DLLs\\py.ico",
                 "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\leviatan.jpg",
+                "hidden": false
+            },
+            {
+                "guid": "{a2fc3baf-962b-46e1-b4d6-0ff09ec629d3}",
+                "name": "Git Bash",
+                "tabTitle": "Git Bash",
+                "commandline": "%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe --login",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\space-mine.jpg",
+                "icon": "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
                 "hidden": false
             }
         ]
