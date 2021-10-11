@@ -1,4 +1,11 @@
-$global:psrc = "$Home\Documents\WindowsPowerShell\profile.ps1"
+#region Global Variables
+
+$global:psrc = "$HOME\Documents\WindowsPowerShell\profile.ps1"
+$global:vsrc = "$HOME\AppData\Roaming\Code\User\settings.json"
+$global:wtrc = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$global:wgrc = "$HOME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+
+#endregion
 
 #region Environment Variables
 
