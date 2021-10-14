@@ -31,6 +31,21 @@ Set-Alias -Name activate -Value ./venv/Scripts/Activate.ps1
 
 #endregion
 
+#region PowerShell Macros
+
+function Get-RemoteBranches {
+    if (Test-Path .git) {
+        foreach ($branch in $(git branch -r | Select-String -Pattern "origin/master" -NotMatch)) {
+            git branch --track $branch.ToString().Split('/')[1].Trim()
+        }
+    }
+    else {
+        Write-Host "Error: Not a Git Repository" -ForegroundColor Red
+    }
+}
+
+#endregion
+
 #region Command Prompt
 
 function Write-BranchName {
