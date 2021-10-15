@@ -36,7 +36,8 @@ Set-Alias -Name activate -Value ./venv/Scripts/Activate.ps1
 function Get-RemoteBranches {
     if (Test-Path .git) {
         foreach ($branch in $(git branch -r | Select-String -Pattern "origin/master" -NotMatch)) {
-            git branch --track $branch.ToString().Split('/')[1].Trim()
+            $branch = $branch.ToString().Split('/')[1].Trim()
+            git branch --track $branch "origin/$branch"
         }
     }
     else {
