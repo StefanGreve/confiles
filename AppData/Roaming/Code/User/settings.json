@@ -4,8 +4,11 @@
     "editor.linkedEditing": true,
     "editor.renderWhitespace": "all",
     "editor.renderLineHighlight": "none",
+    "editor.renderControlCharacters": true,
+    "editor.renderFinalNewline": true,
     "editor.minimap.enabled": false,
     "editor.formatOnSave": true,
+    "editor.semanticHighlighting.enabled": true,
     "editor.rulers": [
         80,
         120,
@@ -13,6 +16,7 @@
     ],
     "editor.tabCompletion": "on",
     "editor.tabSize": 4,
+    "files.autoGuessEncoding": true,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.inputValidationSubjectLength": 72,
@@ -57,5 +61,10 @@
         "Git Bash": {
             "source": "Git Bash"
         }
-    }
+    },
+    "powershell.scriptAnalysis.enable": true,
+    "powershell.startAutomatically": true,
+    "powershell.integratedConsole.focusConsoleOnExecute": false,
+    "powershell.enableProfileLoading": true,
+    "powershell.sideBar.CommandExplorerVisibility": true
 }
