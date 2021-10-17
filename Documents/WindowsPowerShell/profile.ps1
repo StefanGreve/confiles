@@ -1,5 +1,6 @@
-#region Global Variables
+#region Global Profile Variables
 
+$PSDefaultParameterValues['*:Encoding'] = 'utf8'
 $global:PSRC = "$HOME\Documents\WindowsPowerShell\profile.ps1"
 $global:VSRC = "$HOME\AppData\Roaming\Code\User\settings.json"
 $global:WTRC = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -41,8 +42,7 @@ function Get-RemoteBranches {
 
 function Get-Repository {
     param(
-        [Parameter(Position = 0)]
-        [Alias('grepo')]
+        [Parameter(Mandatory = $True)]
         [string]$RepositoryName
     )
 
@@ -58,7 +58,7 @@ function Get-AllRepositories {
 
 function Export-Icon {
     param(
-        [Parameter(Position = 0)]
+        [Parameter(Mandatory = $True)]
         [string]$Path
     )
 
@@ -78,7 +78,7 @@ function Export-Icon {
 
 function Get-FileCount {
     param(
-        [Parameter(Position = 0)]
+        [Parameter()]
         [string]$Path = (Get-Location).Path
     )
 
@@ -92,10 +92,10 @@ function Get-FileCount {
 
 function Get-FileSize {
     param(
-        [Parameter(Position = 0)]
+        [Parameter(Mandatory = $True)]
         [string]$Path,
 
-        [Parameter(Position = 1)]
+        [Parameter()]
         [ValidateSet('B', 'KB', 'MB', 'GB', 'TB')]
         [string]$Unit = 'B'
     )
@@ -109,6 +109,36 @@ function Get-FileSize {
         GB { Write-Output ($Length / 1GB) GB }
         TB { Write-Output ($Length / 1TB) TB }
     }
+}
+
+function Get-InstalledVoices {
+    Add-Type -AssemblyName System.Speech
+    $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+    Write-Output $SpeechSynthesizer.GetInstalledVoices() | ForEach-Object { $_.VoiceInfo }
+}
+
+function Invoke-SpeechSynthesizer {
+    param(
+        [Parameter(Mandatory = $True)]
+        [string]$String,
+
+        [Parameter()]
+        [ValidateRange(-10, 10)]
+        [int]$Rate = 2,
+
+        [Parameter()]
+        [ValidateRange(0, 100)]
+        [int]$Volume = 50,
+
+        [Parameter()]
+        [string]$Voice = "Microsoft Zira Desktop"
+    )
+    Add-Type -AssemblyName System.Speech
+    $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+    $SpeechSynthesizer.Rate = $Rate
+    $SpeechSynthesizer.Volume = $Volume
+    $SpeechSynthesizer.SelectVoice($Voice)
+    $SpeechSynthesizer.Speak($String)
 }
 
 #endregion
