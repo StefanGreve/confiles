@@ -1,9 +1,9 @@
 #region Global Variables
 
-$global:psrc = "$HOME\Documents\WindowsPowerShell\profile.ps1"
-$global:vsrc = "$HOME\AppData\Roaming\Code\User\settings.json"
-$global:wtrc = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$global:wgrc = "$HOME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+$global:PSRC = "$HOME\Documents\WindowsPowerShell\profile.ps1"
+$global:VSRC = "$HOME\AppData\Roaming\Code\User\settings.json"
+$global:WTRC = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$global:WGRC = "$HOME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion
 
@@ -20,7 +20,7 @@ function Invoke-Anonfile {
 }
 
 function Get-RepositoryDirectory {
-    return $(Join-Path -Path $([Environment]::GetFolderPath("Desktop")) -ChildPath "repos")
+    Write-Output $(Join-Path -Path $([Environment]::GetFolderPath("Desktop")) -ChildPath "repos")
 }
 
 function Update-Configuration {
@@ -29,19 +29,20 @@ function Update-Configuration {
 
 function Get-RemoteBranches {
     if (Test-Path .git) {
-        foreach ($branch in $(git branch -r | Select-String -Pattern "origin/master" -NotMatch)) {
-            $branch = $branch.ToString().Split('/')[1].Trim()
-            git branch --track $branch "origin/$branch"
+        foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master" -NotMatch)) {
+            $Branch = $Branch.ToString().Split('/')[1].Trim()
+            git branch --track $Branch "origin/$Branch"
         }
     }
     else {
-        Write-Host "ERROR: Not a Git Repository" -ForegroundColor Red
+        Write-Error "Not a Git Repository" -Category ObjectNotFound
     }
 }
 
 function Get-Repository {
     param(
         [Parameter(Position = 0)]
+        [Alias('grepo')]
         [string]$RepositoryName
     )
 
@@ -71,7 +72,7 @@ function Export-Icon {
         }
     }
     else {
-        Write-Host "ERROR: Not a SVG file." -ForegroundColor Red
+        Write-Error "Not a SVG file." -Category InvalidArgument
     }
 }
 
@@ -86,8 +87,7 @@ function Get-FileCount {
         $Total += $_.Count
     }
 
-    Write-Host "Total File Count: " -NoNewline
-    Write-Host $Total -ForegroundColor Yellow
+    Write-Output "Total File Count: $Total"
 }
 
 function Get-FileSize {
@@ -103,11 +103,11 @@ function Get-FileSize {
     $Length = (Get-item $Path).Length
 
     switch ($Unit) {
-        B { Write-Host $Length B }
-        KB { Write-Host ($Length / 1KB) KB }
-        MB { Write-Host ($Length / 1MB) MB }
-        GB { Write-Host ($Length / 1GB) GB }
-        TB { Write-Host ($Length / 1TB) TB }
+        B { Write-Output $Length B }
+        KB { Write-Output ($Length / 1KB) KB }
+        MB { Write-Output ($Length / 1MB) MB }
+        GB { Write-Output ($Length / 1GB) GB }
+        TB { Write-Output ($Length / 1TB) TB }
     }
 }
 
@@ -120,7 +120,7 @@ Set-Alias -Name config -Value Update-Configuration
 Set-Alias -Name grepo -Value Get-Repository
 Set-Alias -Name grepo-all -Value Get-AllRepositories
 Set-Alias -Name export -Value Export-Icon
-Set-Alias -Name activate -Value ./venv/Scripts/Activate.ps1
+Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 
 #endregion
@@ -129,14 +129,14 @@ Set-Alias -Name count -Value Get-FileCount
 
 function Write-BranchName {
     try {
-        $branch = git rev-parse --abbrev-ref HEAD
+        $Branch = git rev-parse --abbrev-ref HEAD
 
-        if ($branch -eq "HEAD") {
-            $branch = git rev-parse --short HEAD
-            Write-Host " ($branch)" -ForegroundColor "red" -NoNewline
+        if ($Branch -eq "HEAD") {
+            $Branch = git rev-parse --short HEAD
+            Write-Host " ($Branch)" -ForegroundColor "red" -NoNewline
         }
         else {
-            Write-Host " ($branch)" -ForegroundColor "blue" -NoNewline
+            Write-Host " ($Branch)" -ForegroundColor "blue" -NoNewline
         }
     }
     catch {
@@ -148,10 +148,10 @@ function prompt {
     Write-Host '[' -NoNewline
     Write-Host $env:UserName -NoNewline -ForegroundColor Cyan
     Write-Host "@$env:ComputerName " -NoNewline
-    $path = "$($executionContext.SessionState.Path.CurrentLocation)"
-    $userPrompt = "`n$('>' * ($nestedPromptLevel + 1)) "
+    $Path = "$($executionContext.SessionState.Path.CurrentLocation)"
+    $UserPrompt = "`n$('>' * ($NestedPromptLevel + 1)) "
 
-    Write-Host $path -NoNewline -ForegroundColor Green
+    Write-Host $Path -NoNewline -ForegroundColor Green
     Write-Host ']' -NoNewline
 
     if (Test-Path .git) {
@@ -163,7 +163,7 @@ function prompt {
         Write-Host " ($VenvPrompt)" -NoNewline -ForegroundColor Yellow
     }
 
-    return $userPrompt
+    return $UserPrompt
 }
 
 #endregion
