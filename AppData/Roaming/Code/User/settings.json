@@ -8,6 +8,7 @@
     "editor.renderFinalNewline": true,
     "editor.minimap.enabled": false,
     "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
     "editor.semanticHighlighting.enabled": true,
     "editor.rulers": [
         80,
@@ -41,7 +42,7 @@
         "**/.factorypath": true
     },
     "latex-workshop.view.pdf.viewer": "tab",
-    // Windows 10 Settings
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
@@ -66,5 +67,5 @@
     "powershell.startAutomatically": true,
     "powershell.integratedConsole.focusConsoleOnExecute": false,
     "powershell.enableProfileLoading": true,
-    "powershell.sideBar.CommandExplorerVisibility": true
+    "powershell.sideBar.CommandExplorerVisibility": true,
 }
