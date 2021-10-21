@@ -5,13 +5,14 @@
     "copyFormatting": false,
     "profiles": {
         "defaults": {
-            "guid": "{7783cf0d-3d2d-4be8-91dc-bc7e523250e4}",
-            "name": "PowerShell",
-            "commandline": "powershell.exe -nologo",
-            "hidden": false,
+            "guid": "{f486cf1d-1994-4db1-a49d-2ca5b6318c76}",
+            "name": "PowerShell Core",
+            "tabTitle": "PowerShell Core",
+            "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -nologo",
             "acrylicOpacity": 1,
             "backgroundImageOpacity": 0.5,
             "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
+            "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
             "cursorColor": "#FFFFFF",
             "cursorShape": "bar",
             "fontFace": "Consolas",
@@ -20,7 +21,8 @@
             "padding": "0, 0, 0, 0",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false
+            "useAcrylic": false,
+            "hidden": false
         },
         "list": [
             {
@@ -37,6 +39,7 @@
                 "name": "Command Prompt",
                 "tabTitle": "CMD",
                 "commandline": "cmd.exe",
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\cmd_prompt.png",
                 "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\ruins.jpg",
                 "hidden": false
             },
