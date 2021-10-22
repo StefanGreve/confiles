@@ -162,13 +162,15 @@ function Get-Hash {
 function Get-WorldClock {
     $TimeZoneIds = @("Mountain Standard Time", "Paraguay Standard Time", "W. Europe Standard Time", "Russian Standard Time", "Tokyo Standard Time")
 
-    Write-Output $TimeZoneIds | ForEach-Object {
+    $WorldClock = $TimeZoneIds | ForEach-Object {
         New-Object PSObject -Property @{
-            DateTime      = [System.TimeZoneInfo]::ConvertTimeFromUtc((Get-Date).ToUniversalTime(), [System.TimeZoneInfo]::FindSystemTimeZoneById($_))
-            Id            = $_
-            BaseUtcOffset = [System.TimeZoneInfo]::FindSystemTimeZoneById($_).BaseUtcOffset
-        } | Sort-Object -Property BaseUtcOffset -Descending
+            DateTime    = [System.TimeZoneInfo]::ConvertTimeFromUtc((Get-Date).ToUniversalTime(), [System.TimeZoneInfo]::FindSystemTimeZoneById($_))
+            Id          = $_
+            DisplayName = [System.TimeZoneInfo]::FindSystemTimeZoneById($_)
+        }
     }
+
+    Write-Output $WorldClock | Sort-Object -Property DisplayName.BaseUtcOffset | Select-Object DateTime, Id, DisplayName
 }
 
 #endregion
