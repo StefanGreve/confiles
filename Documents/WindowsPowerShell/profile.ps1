@@ -141,6 +141,36 @@ function Invoke-SpeechSynthesizer {
     $SpeechSynthesizer.Speak($String)
 }
 
+function Get-Hash {
+    param (
+        [Parameter(Mandatory = $True)]
+        [string]$Value,
+
+        [Parameter()]
+        [ValidateSet('MD5', 'SHA1', 'SHA256', 'SHA384', 'SHA512')]
+        [string]$Algorithm = 'MD5'
+    )
+
+    $StringAsStream = [System.IO.MemoryStream]::new()
+    $Writer = [System.IO.StreamWriter]::new($stringAsStream)
+    $Writer.write($Value)
+    $Writer.Flush()
+    $StringAsStream.Position = 0
+    Write-Output $(Get-FileHash -InputStream $stringAsStream -Algorithm $Algorithm | Select-Object Hash)
+}
+
+function Get-WorldClock {
+    $TimeZoneIds = @("Mountain Standard Time", "Paraguay Standard Time", "W. Europe Standard Time", "Russian Standard Time", "Tokyo Standard Time")
+
+    Write-Output $TimeZoneIds | ForEach-Object {
+        New-Object PSObject -Property @{
+            DateTime      = [System.TimeZoneInfo]::ConvertTimeFromUtc((Get-Date).ToUniversalTime(), [System.TimeZoneInfo]::FindSystemTimeZoneById($_))
+            Id            = $_
+            BaseUtcOffset = [System.TimeZoneInfo]::FindSystemTimeZoneById($_).BaseUtcOffset
+        } | Sort-Object -Property BaseUtcOffset -Descending
+    }
+}
+
 #endregion
 
 #region Aliases
