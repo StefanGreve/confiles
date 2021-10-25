@@ -62,18 +62,22 @@ function Export-Icon {
         [string]$Path
     )
 
-    $Size = 1024
-    $File = Get-Item $Path
-
-    if ($File.Extension -eq ".svg") {
-        while ($Size -gt 16) {
-            inkscape $Path -w $Size -h $Size -o "$($Size)x$($Size)-$($File.BaseName).png"
-            $Size = $Size / 2
+    begin {
+        $Size = 1024
+        $File = Get-Item $Path
+    }
+    process {
+        if ($File.Extension -eq ".svg") {
+            while ($Size -gt 16) {
+                inkscape $Path -w $Size -h $Size -o "$($Size)x$($Size)-$($File.BaseName).png"
+                $Size = $Size / 2
+            }
+        }
+        else {
+            Write-Error "Not a SVG file." -Category InvalidArgument -ErrorAction Stop
         }
     }
-    else {
-        Write-Error "Not a SVG file." -Category InvalidArgument -ErrorAction Stop
-    }
+    end {}
 }
 
 function Get-FileCount {
@@ -82,12 +86,17 @@ function Get-FileCount {
         [string]$Path = (Get-Location).Path
     )
 
-    $Total = 0
-    Get-ChildItem -Path $Path -Recurse -File | Group-Object Extension -NoElement | Sort-Object Count -Descending | ForEach-Object {
-        $Total += $_.Count
+    begin {
+        $Total = 0
     }
-
-    Write-Output "Total File Count: $Total"
+    process {
+        Get-ChildItem -Path $Path -Recurse -File | Group-Object Extension -NoElement | Sort-Object Count -Descending | ForEach-Object {
+            $Total += $_.Count
+        }
+    }
+    end {
+        Write-Output "Total File Count: $Total"
+    }
 }
 
 function Get-FileSize {
@@ -100,15 +109,19 @@ function Get-FileSize {
         [string]$Unit = 'B'
     )
 
-    $Length = (Get-item $Path).Length
-
-    switch ($Unit) {
-        B { Write-Output $Length B }
-        KB { Write-Output ($Length / 1KB) KB }
-        MB { Write-Output ($Length / 1MB) MB }
-        GB { Write-Output ($Length / 1GB) GB }
-        TB { Write-Output ($Length / 1TB) TB }
+    begin {
+        $Length = (Get-item $Path).Length
     }
+    process {
+        switch ($Unit) {
+            B { Write-Output $Length B }
+            KB { Write-Output ($Length / 1KB) KB }
+            MB { Write-Output ($Length / 1MB) MB }
+            GB { Write-Output ($Length / 1GB) GB }
+            TB { Write-Output ($Length / 1TB) TB }
+        }
+    }
+    end {}
 }
 
 function Get-InstalledVoices {
@@ -133,12 +146,18 @@ function Invoke-SpeechSynthesizer {
         [Parameter()]
         [string]$Voice = "Microsoft Zira Desktop"
     )
-    Add-Type -AssemblyName System.Speech
-    $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
-    $SpeechSynthesizer.Rate = $Rate
-    $SpeechSynthesizer.Volume = $Volume
-    $SpeechSynthesizer.SelectVoice($Voice)
-    $SpeechSynthesizer.Speak($String)
+
+    begin {
+        Add-Type -AssemblyName "System.Speech"
+        $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+    }
+    process {
+        $SpeechSynthesizer.Rate = $Rate
+        $SpeechSynthesizer.Volume = $Volume
+        $SpeechSynthesizer.SelectVoice($Voice)
+        $SpeechSynthesizer.Speak($String)
+    }
+    end {}
 }
 
 function Get-Hash {
@@ -151,12 +170,17 @@ function Get-Hash {
         [string]$Algorithm = 'MD5'
     )
 
-    $StringAsStream = [System.IO.MemoryStream]::new()
-    $Writer = [System.IO.StreamWriter]::new($stringAsStream)
-    $Writer.write($Value)
-    $Writer.Flush()
-    $StringAsStream.Position = 0
-    Write-Output $(Get-FileHash -InputStream $stringAsStream -Algorithm $Algorithm | Select-Object Hash)
+    begin {
+        $StringAsStream = [System.IO.MemoryStream]::new()
+        $Writer = [System.IO.StreamWriter]::new($stringAsStream)
+    }
+    process {
+        $Writer.write($Value)
+        $Writer.Flush()
+        $StringAsStream.Position = 0
+        Write-Output $(Get-FileHash -InputStream $stringAsStream -Algorithm $Algorithm | Select-Object Hash)
+    }
+    end {}
 }
 
 function Get-WorldClock {
@@ -194,10 +218,9 @@ function ConvertTo-Pdf {
                 if ($File.Extension -like ".doc?") {
                     $Document = $Word.Documents.Open($File.FullName, $False, $True)
                     Write-Verbose "Processing $File . . ."
-                    $Document.SaveAs([ref][system.object]$File.FullName.Replace("docx", "pdf"), [ref]$SaveFormat)
+                    $Document.SaveAs([ref][System.Object]$File.FullName.Replace("docx", "pdf"), [ref]$SaveFormat)
                     $Document.close($False)
                 }
-
             }
         }
         catch {
