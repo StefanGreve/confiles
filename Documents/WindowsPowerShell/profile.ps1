@@ -36,7 +36,7 @@ function Get-RemoteBranches {
         }
     }
     else {
-        Write-Error "Not a Git Repository" -Category ObjectNotFound
+        Write-Error "Not a Git Repository" -Category ObjectNotFound -ErrorAction Stop
     }
 }
 
@@ -72,7 +72,7 @@ function Export-Icon {
         }
     }
     else {
-        Write-Error "Not a SVG file." -Category InvalidArgument
+        Write-Error "Not a SVG file." -Category InvalidArgument -ErrorAction Stop
     }
 }
 
@@ -171,6 +171,43 @@ function Get-WorldClock {
     }
 
     Write-Output $WorldClock | Sort-Object -Property DisplayName.BaseUtcOffset | Select-Object DateTime, Id, DisplayName
+}
+
+function ConvertTo-Pdf {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $True)]
+        [string[]] $Path
+    )
+
+    begin {
+        Add-Type -AssemblyName "Microsoft.Office.Interop.Word"
+        $Word = New-Object -ComObject Word.Application
+        $Word.Visible = $False
+        $SaveFormat = [Microsoft.Office.Interop.Word.WdSaveFormat]::wdFormatPDF
+    }
+    process {
+        try {
+            $Path | ForEach-Object {
+                $File = Get-ChildItem $_
+
+                if ($File.Extension -like ".doc?") {
+                    $Document = $Word.Documents.Open($File.FullName, $False, $True)
+                    Write-Verbose "Processing $File . . ."
+                    $Document.SaveAs([ref][system.object]$File.FullName.Replace("docx", "pdf"), [ref]$SaveFormat)
+                    $Document.close($False)
+                }
+
+            }
+        }
+        catch {
+            Write-Error $Error[0] -Category InvalidArgument -ErrorAction Stop
+        }
+    }
+    end {
+        $Word.Quit()
+        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($Word) | Out-Null
+    }
 }
 
 #endregion
