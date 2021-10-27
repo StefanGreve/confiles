@@ -15,6 +15,7 @@
         120,
         160
     ],
+    "editor.defaultFormatter": "EditorConfig.EditorConfig",
     "editor.tabCompletion": "on",
     "editor.tabSize": 4,
     "files.autoGuessEncoding": true,
@@ -68,4 +69,5 @@
     "powershell.integratedConsole.focusConsoleOnExecute": false,
     "powershell.enableProfileLoading": true,
     "powershell.sideBar.CommandExplorerVisibility": true,
+    "window.zoomLevel": 0,
 }
