@@ -2,9 +2,9 @@
 
 $PSDefaultParameterValues['*:Encoding'] = 'utf8'
 $global:PSRC = "$HOME\Documents\WindowsPowerShell\profile.ps1"
-$global:VSRC = "$HOME\AppData\Roaming\Code\User\settings.json"
-$global:WTRC = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$global:WGRC = "$HOME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+$global:VSRC = "$env:APPDATA\Code\User\settings.json"
+$global:WTRC = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$global:WGRC = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion
 
