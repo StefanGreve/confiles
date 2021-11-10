@@ -114,11 +114,11 @@ function Get-FileSize {
     }
     process {
         switch ($Unit) {
-            B { Write-Output "$Length B" }
-            KB { Write-Output "$(($Length / 1KB))KB" }
-            MB { Write-Output "$(($Length / 1MB))MB" }
-            GB { Write-Output "$(($Length / 1GB))GB" }
-            TB { Write-Output "$(($Length / 1TB))TB" }
+            B { Write-Output $Length }
+            KB { Write-Output $(($Length / 1KB)) }
+            MB { Write-Output $(($Length / 1MB)) }
+            GB { Write-Output $(($Length / 1GB)) }
+            TB { Write-Output $(($Length / 1TB)) }
         }
     }
     end {}
