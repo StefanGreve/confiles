@@ -267,6 +267,10 @@ function Start-Lesson {
     end {}
 }
 
+function Get-Calendar {
+    python -c "from calendar import calendar; print(calendar($(Get-Date -Format yyyy),2,1,6,3))"
+}
+
 #endregion
 
 #region Aliases
