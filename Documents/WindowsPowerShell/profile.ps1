@@ -233,6 +233,40 @@ function ConvertTo-Pdf {
     }
 }
 
+function Start-Lesson {
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [string] $ReposDirectory = $(Get-RepositoryDirectory),
+
+        [Parameter()]
+        [ValidateSet("SSH", "HTTPS")]
+        [string] $Protocol = "SSH"
+    )
+
+    begin {
+        $RepoName = "nexus"
+        $ClassRoom = $(Join-Path -Path $ReposDirectory -ChildPath $RepoName)
+        $Uri = ([System.Uri](Get-Item $ClassRoom).FullName).AbsoluteUri -Replace ".*///"
+    }
+    process {
+        try {
+            if (-Not (Test-Path $ClassRoom)) {
+                Write-Verbose "Creating a new classroom . . ."
+                $Url = if ($Protocol -eq "SSH") { "git@github.com:" } else { "https://github.com/" }
+                git clone "${Url}StefanGreve/${RepoName}.git" $ClassRoom
+            }
+
+            git --git-dir=$(Join-Path -Path $ClassRoom -ChildPath ".git") pull
+            Start-Process obsidian://open?path=$Uri -Wait -WindowStyle Maximized
+        }
+        catch {
+            Write-Error "You're not enrolled in this class." -Category PermissionDenied -ErrorAction Stop
+        }
+    }
+    end {}
+}
+
 #endregion
 
 #region Aliases
@@ -244,6 +278,7 @@ Set-Alias -Name grepo-all -Value Get-AllRepositories
 Set-Alias -Name export -Value Export-Icon
 Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
+Set-Alias -Name touch -Value New-Item
 
 #endregion
 
