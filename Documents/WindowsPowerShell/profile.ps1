@@ -50,10 +50,27 @@ function Get-Repository {
 }
 
 function Get-AllRepositories {
-    $Response = Invoke-RestMethod -Uri "https://api.github.com/users/$(git config --global user.name)/repos"
-    $Response | ForEach-Object {
-        git clone "git@github.com:$($_.full_name).git" "$(Get-RepositoryDirectory)\$($_.name)"
+    param(
+        [Parameter()]
+        [string]$ReposDirectory = $(Get-RepositoryDirectory),
+
+        [Parameter()]
+        [ValidateSet("SSH", "HTTPS")]
+        [string] $Protocol = "SSH"
+    )
+
+    begin {
+        $Hostname = if ($Protocol -eq "SSH") { "git@github.com:" } else { "https://github.com/" }
+        $Response = Invoke-RestMethod -Uri "https://api.github.com/users/$(git config --global user.name)/repos"
+        $Count = $Response.Count
     }
+    process {
+        for ($i = 0; $i -le $Response.Count; $i++) {
+            Write-Progress -Activity "Git Clone" -PercentComplete ($i * 100 / $Count) -Status "$(([System.Math]::Round((($i) / $Count * 100), 0)))%" -CurrentOperation $Response[$i].name
+            git clone --quiet "${Hostname}$($Response[$i].full_name).git" $(Join-Path -Path $ReposDirectory -ChildPath $Response[$i].name)
+        }
+    }
+    end{}
 }
 
 function Export-Icon {
@@ -248,13 +265,13 @@ function Start-Lesson {
         $RepoName = "nexus"
         $ClassRoom = $(Join-Path -Path $ReposDirectory -ChildPath $RepoName)
         $Uri = ([System.Uri](Get-Item $ClassRoom).FullName).AbsoluteUri -Replace ".*///"
+        $Hostname = if ($Protocol -eq "SSH") { "git@github.com:" } else { "https://github.com/" }
     }
     process {
         try {
             if (-Not (Test-Path $ClassRoom)) {
                 Write-Verbose "Creating a new classroom . . ."
-                $Url = if ($Protocol -eq "SSH") { "git@github.com:" } else { "https://github.com/" }
-                git clone "${Url}StefanGreve/${RepoName}.git" $ClassRoom
+                git clone "${Hostname}StefanGreve/${RepoName}.git" $ClassRoom
             }
 
             git --git-dir=$(Join-Path -Path $ClassRoom -ChildPath ".git") pull
