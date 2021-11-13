@@ -25,7 +25,7 @@
     "telemetry.enableTelemetry": false,
     "extensions.ignoreRecommendations": true,
     "workbench.editor.highlightModifiedTabs": true,
-    "workbench.iconTheme": "vs-minimal",
+    "workbench.iconTheme": "vscode-icons",
     "workbench.settings.editor": "json",
     "workbench.sideBar.location": "right",
     "workbench.activityBar.visible": true,
@@ -69,5 +69,11 @@
     "powershell.integratedConsole.focusConsoleOnExecute": false,
     "powershell.enableProfileLoading": true,
     "powershell.sideBar.CommandExplorerVisibility": true,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
+    "jupyter.jupyterServerType": "local",
+    "notebook.lineNumbers": "on",
+    "python.pythonPath": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
 }
