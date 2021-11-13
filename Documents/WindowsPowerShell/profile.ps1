@@ -291,6 +291,36 @@ function Get-Calendar {
     python -c "from calendar import calendar; print(calendar($(Get-Date -Format yyyy),2,1,6,3))"
 }
 
+function Get-HardwareInfo {
+    begin {
+        $CIM_ComputerSystem = Get-CimInstance -ClassName CIM_ComputerSystem
+        $CIM_BIOSElement = Get-CimInstance -ClassName CIM_BIOSElement
+        $CIM_OperatingSystem = Get-CimInstance -ClassName CIM_OperatingSystem
+        $CIM_Processor = Get-CimInstance -ClassName CIM_Processor
+        $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object {$_.Name -eq $CIM_OperatingSystem.SystemDrive}
+    }
+    process{
+        Write-Output $(New-Object PSObject -Property @{
+                LocalComputerName = $env:COMPUTERNAME
+                Manufacturer = $CIM_ComputerSystem.Manufacturer
+                Model = $CIM_ComputerSystem.Model
+                SerialNumber = $CIM_BIOSElement.SerialNumber
+                CPU = $CIM_Processor.Name
+                SysDriveCapacity = '{0:N2}' -f ($CIM_LogicalDisk.Size / 1GB)
+                SysDriveFreeSpace ='{0:N2}' -f ($CIM_LogicalDisk.FreeSpace / 1GB)
+                SysDriveFreeSpacePercent = '{0:N0}' -f ($CIM_LogicalDisk.FreeSpace / $CIM_LogicalDisk.Size * 100)
+                RAM = '{0:N2}' -f ($CIM_ComputerSystem.TotalPhysicalMemory / 1GB)
+                OperatingSystemName = $CIM_OperatingSystem.Caption
+                OperatingSystemVersion = $CIM_OperatingSystem.Version
+                OperatingSystemBuildNumber = $CIM_OperatingSystem.BuildNumber
+                OperatingSystemServicePack = $CIM_OperatingSystem.ServicePackMajorVersion
+                CurrentUser = $CIM_ComputerSystem.UserName
+                LastBootUpTime = $CIM_OperatingSystem.LastBootUpTime
+            })
+    }
+    end{}
+}
+
 #endregion
 
 #region Aliases
