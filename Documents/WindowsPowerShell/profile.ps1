@@ -55,17 +55,20 @@ function Get-AllRepositories {
         [string]$ReposDirectory = $(Get-RepositoryDirectory),
 
         [Parameter()]
+        [string]$UserName = $(git config --global user.name),
+
+        [Parameter()]
         [ValidateSet("SSH", "HTTPS")]
         [string] $Protocol = "SSH"
     )
 
     begin {
         $Hostname = if ($Protocol -eq "SSH") { "git@github.com:" } else { "https://github.com/" }
-        $Response = Invoke-RestMethod -Uri "https://api.github.com/users/$(git config --global user.name)/repos"
+        $Response = Invoke-RestMethod -Uri "https://api.github.com/users/${UserName}/repos"
         $Count = $Response.Count
     }
     process {
-        for ($i = 0; $i -le $Response.Count; $i++) {
+        for ($i = 0; $i -le $Response.Count - 1; $i++) {
             Write-Progress -Activity "Git Clone" -PercentComplete ($i * 100 / $Count) -Status "$(([System.Math]::Round((($i) / $Count * 100), 0)))%" -CurrentOperation $Response[$i].name
             git clone --quiet "${Hostname}$($Response[$i].full_name).git" $(Join-Path -Path $ReposDirectory -ChildPath $Response[$i].name)
         }
