@@ -31,7 +31,7 @@
                 "tabTitle": "PowerShell Core",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -nologo",
                 "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
-                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
+                "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\ring.jpg",
                 "hidden": false
             },
             {
