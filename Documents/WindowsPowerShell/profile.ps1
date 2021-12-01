@@ -6,13 +6,13 @@ $global:VSRC = "$env:APPDATA\Code\User\settings.json"
 $global:WTRC = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 $global:WGRC = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
-#endregion
+#endregion Global Profile Variables
 
 #region Environment Variables
 
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
-#endregion
+#endregion Environment Variables
 
 #region PowerShell Macros
 
@@ -300,6 +300,7 @@ function Get-HardwareInfo {
         $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object {$_.Name -eq $CIM_OperatingSystem.SystemDrive}
     }
     process{
+        #TODO: Improve implementation
         Write-Output $(New-Object PSObject -Property @{
                 LocalComputerName = $env:COMPUTERNAME
                 Manufacturer = $CIM_ComputerSystem.Manufacturer
@@ -321,7 +322,19 @@ function Get-HardwareInfo {
     end{}
 }
 
-#endregion
+function Start-Greeting {
+    if ($PSVersionTable.PSVersion.Major -le 5) {
+        $File = switch ($(Get-Date -Format HH)) {
+            {$_ -lt 12} {"morning.txt"; Break}
+            {$_ -lt 17} {"back.txt"; Break}
+            Default {"evening.txt"; Break}
+        }
+
+        Invoke-SpeechSynthesizer -String $(Get-Content $HOME\Settings\$File | Get-Random) -Rate 1 -Voice "Microsoft Haruka Desktop"
+    }
+}
+
+#endregion PowerShell Macros
 
 #region Aliases
 
@@ -334,7 +347,7 @@ Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
 
-#endregion
+#endregion Aliases
 
 #region Command Prompt
 
@@ -376,5 +389,11 @@ function prompt {
 
     return $UserPrompt
 }
+
+#endregion Command Prompt
+
+#region On Startup
+
+Start-Greeting
 
 #endregion
