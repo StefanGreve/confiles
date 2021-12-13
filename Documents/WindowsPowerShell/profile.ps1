@@ -322,6 +322,10 @@ function Get-HardwareInfo {
     end{}
 }
 
+function Get-Uptime {
+    (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+}
+
 function Start-Greeting {
     if ($PSVersionTable.PSVersion.Major -le 5) {
         $File = switch ($(Get-Date -Format HH)) {
