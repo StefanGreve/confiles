@@ -323,7 +323,7 @@ function Get-HardwareInfo {
 }
 
 function Get-Uptime {
-    (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+    Write-Output $((Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime)
 }
 
 function Start-Greeting {
@@ -376,7 +376,7 @@ function prompt {
     Write-Host '[' -NoNewline
     Write-Host $env:UserName -NoNewline -ForegroundColor Cyan
     Write-Host "@$env:ComputerName " -NoNewline
-    $Path = "$($executionContext.SessionState.Path.CurrentLocation)"
+    $Path = (Get-Item "$($executionContext.SessionState.Path.CurrentLocation)").BaseName
     $UserPrompt = "`n$('>' * ($NestedPromptLevel + 1)) "
 
     Write-Host $Path -NoNewline -ForegroundColor Green
