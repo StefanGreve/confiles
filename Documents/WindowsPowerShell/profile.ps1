@@ -396,7 +396,7 @@ function prompt {
     return $UserPrompt
 }
 
-function Set-Timer {
+function Start-Timer {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
