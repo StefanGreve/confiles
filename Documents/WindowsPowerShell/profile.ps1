@@ -396,6 +396,34 @@ function prompt {
     return $UserPrompt
 }
 
+function Set-Timer {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
+        [int] $Minutes,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "Seconds")]
+        [int] $Seconds
+    )
+    begin {
+        $WindowsShell = New-Object -ComObject "WScript.Shell"
+        $CountDown = if ($Minutes) { $Minutes * 60 } else { $Seconds }
+    }
+    process {
+        for ($s = 0; $s -le $CountDown; $s++) {
+            Write-Progress -Activity "Timer" -PercentComplete ($s * 100 / $CountDown) -Status "$(([System.Math]::Round((($s) / $CountDown * 100), 0)))%" -SecondsRemaining ($CountDown - $s)
+            [System.Threading.Thread]::Sleep($s)
+            $WindowsShell.SendKeys("{SCROLLLOCK}")
+        }
+    }
+    end {
+        Invoke-SpeechSynthesizer -String "Time is up" -Volume 100
+        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$WindowsShell) | Out-Null
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
+    }
+}
+
 #endregion Command Prompt
 
 #region On Startup
