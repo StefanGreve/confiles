@@ -408,15 +408,18 @@ function Start-Timer {
     begin {
         $WindowsShell = New-Object -ComObject "WScript.Shell"
         $CountDown = if ($Minutes) { $Minutes * 60 } else { $Seconds }
+        $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
+        $s = 0
     }
     process {
-        for ($s = 0; $s -le $CountDown; $s++) {
+        while ($s -le $CountDown) {
             Write-Progress -Activity "Timer" -PercentComplete ($s * 100 / $CountDown) -Status "$(([System.Math]::Round((($s) / $CountDown * 100), 0)))%" -SecondsRemaining ($CountDown - $s)
-            [System.Threading.Thread]::Sleep($s)
             $WindowsShell.SendKeys("{SCROLLLOCK}")
+            $s = $StopWatch.Elapsed.TotalSeconds
         }
     }
     end {
+        $StopWatch.Stop()
         Invoke-SpeechSynthesizer -String "Time is up" -Volume 100
         [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$WindowsShell) | Out-Null
         [System.GC]::Collect()
