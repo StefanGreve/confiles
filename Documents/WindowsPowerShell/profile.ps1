@@ -73,7 +73,7 @@ function Get-AllRepositories {
             git clone --quiet "${Hostname}$($Response[$i].full_name).git" $(Join-Path -Path $ReposDirectory -ChildPath $Response[$i].name)
         }
     }
-    end{}
+    end {}
 }
 
 function Export-Icon {
@@ -249,7 +249,9 @@ function ConvertTo-Pdf {
     }
     end {
         $Word.Quit()
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($Word) | Out-Null
+        [System.Runtime.Interopservices.Marshal]::ReleaseComObject([System.__ComObject]$Word) | Out-Null
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
     }
 }
 
@@ -297,29 +299,29 @@ function Get-HardwareInfo {
         $CIM_BIOSElement = Get-CimInstance -ClassName CIM_BIOSElement
         $CIM_OperatingSystem = Get-CimInstance -ClassName CIM_OperatingSystem
         $CIM_Processor = Get-CimInstance -ClassName CIM_Processor
-        $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object {$_.Name -eq $CIM_OperatingSystem.SystemDrive}
+        $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object { $_.Name -eq $CIM_OperatingSystem.SystemDrive }
     }
-    process{
+    process {
         #TODO: Improve implementation
         Write-Output $(New-Object PSObject -Property @{
-                LocalComputerName = $env:COMPUTERNAME
-                Manufacturer = $CIM_ComputerSystem.Manufacturer
-                Model = $CIM_ComputerSystem.Model
-                SerialNumber = $CIM_BIOSElement.SerialNumber
-                CPU = $CIM_Processor.Name
-                SysDriveCapacity = '{0:N2}' -f ($CIM_LogicalDisk.Size / 1GB)
-                SysDriveFreeSpace ='{0:N2}' -f ($CIM_LogicalDisk.FreeSpace / 1GB)
-                SysDriveFreeSpacePercent = '{0:N0}' -f ($CIM_LogicalDisk.FreeSpace / $CIM_LogicalDisk.Size * 100)
-                RAM = '{0:N2}' -f ($CIM_ComputerSystem.TotalPhysicalMemory / 1GB)
-                OperatingSystemName = $CIM_OperatingSystem.Caption
-                OperatingSystemVersion = $CIM_OperatingSystem.Version
+                LocalComputerName          = $env:COMPUTERNAME
+                Manufacturer               = $CIM_ComputerSystem.Manufacturer
+                Model                      = $CIM_ComputerSystem.Model
+                SerialNumber               = $CIM_BIOSElement.SerialNumber
+                CPU                        = $CIM_Processor.Name
+                SysDriveCapacity           = '{0:N2}' -f ($CIM_LogicalDisk.Size / 1GB)
+                SysDriveFreeSpace          = '{0:N2}' -f ($CIM_LogicalDisk.FreeSpace / 1GB)
+                SysDriveFreeSpacePercent   = '{0:N0}' -f ($CIM_LogicalDisk.FreeSpace / $CIM_LogicalDisk.Size * 100)
+                RAM                        = '{0:N2}' -f ($CIM_ComputerSystem.TotalPhysicalMemory / 1GB)
+                OperatingSystemName        = $CIM_OperatingSystem.Caption
+                OperatingSystemVersion     = $CIM_OperatingSystem.Version
                 OperatingSystemBuildNumber = $CIM_OperatingSystem.BuildNumber
                 OperatingSystemServicePack = $CIM_OperatingSystem.ServicePackMajorVersion
-                CurrentUser = $CIM_ComputerSystem.UserName
-                LastBootUpTime = $CIM_OperatingSystem.LastBootUpTime
+                CurrentUser                = $CIM_ComputerSystem.UserName
+                LastBootUpTime             = $CIM_OperatingSystem.LastBootUpTime
             })
     }
-    end{}
+    end {}
 }
 
 function Get-Uptime {
@@ -329,9 +331,9 @@ function Get-Uptime {
 function Start-Greeting {
     if ($PSVersionTable.PSVersion.Major -le 5) {
         $File = switch ($(Get-Date -Format HH)) {
-            {$_ -lt 12} {"morning.txt"; Break}
-            {$_ -lt 17} {"back.txt"; Break}
-            Default {"evening.txt"; Break}
+            { $_ -lt 12 } { "morning.txt"; Break }
+            { $_ -lt 17 } { "back.txt"; Break }
+            Default { "evening.txt"; Break }
         }
 
         Invoke-SpeechSynthesizer -String $(Get-Content $HOME\Settings\$File | Get-Random) -Rate 1 -Voice "Microsoft Haruka Desktop"
