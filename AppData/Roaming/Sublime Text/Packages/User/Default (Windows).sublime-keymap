@@ -7,5 +7,17 @@
 	},
 	{
 		"keys": ["alt+l"], "command": "focus_neighboring_group", "args": {"forward": false}
+	},
+	{
+		"keys": ["alt+w"], "command": "close_pane"
+	},
+	{
+		"keys": ["alt+n"], "command": "new_pane"
+	},
+	{
+		"keys": ["alt+up"], "command": "swap_line_up"
+	},
+	{
+		"keys": ["alt+down"], "command": "swap_line_down"
 	}
 ]
