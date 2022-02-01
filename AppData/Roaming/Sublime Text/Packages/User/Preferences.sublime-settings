@@ -1,0 +1,35 @@
+{
+	"auto_hide_menu": true,
+    "auto_complete_commit_on_tab": false,
+    "theme": "One Dark.sublime-theme",
+    "ignored_packages": [
+    	"Vintage",
+    ],
+    "font_size": 11,
+    "rules": [
+    	80,
+        120,
+        160
+    ],
+    "translate_tabs_to_spaces": true,
+    "draw_white_space": "all",
+    "ensure_newline_at_eof_on_save": true,
+    "default_line_ending": "windows",
+    "show_definitions": true,
+    "tab_completions": false,
+    "auto_complete": true,
+    "auto_complete_delay": 50,
+    "auto_complete_triggers": [
+    	{
+            "characters": ".",
+            "selector": "source",
+        }
+    ],
+    "auto_complete_include_snippets": false,
+    "auto_complete_include_snippets_when_typing": false,
+    "show_encoding": true,
+    "show_line_endings": true,
+    "hardware_acceleration": "none",
+    "remember_full_screen": true,
+    "remember_layout": true,
+}

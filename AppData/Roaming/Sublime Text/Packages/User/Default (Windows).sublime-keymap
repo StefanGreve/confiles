@@ -1,0 +1,11 @@
+[
+	{
+		"keys": ["ctrl+shift+j"], "command": "toggle_terminus_panel"
+	},
+	{
+		"keys": ["alt+h"], "command": "focus_neighboring_group", "args": {"forward": true}
+	},
+	{
+		"keys": ["alt+l"], "command": "focus_neighboring_group", "args": {"forward": false}
+	}
+]
