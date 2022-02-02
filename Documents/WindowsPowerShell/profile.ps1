@@ -340,6 +340,53 @@ function Start-Greeting {
     }
 }
 
+function Start-Timer {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
+        [int] $Minutes,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "Seconds")]
+        [int] $Seconds
+    )
+    begin {
+        $WindowsShell = New-Object -ComObject "WScript.Shell"
+        $CountDown = if ($Minutes) { $Minutes * 60 } else { $Seconds }
+        $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
+        $s = 0
+    }
+    process {
+        while ($s -le $CountDown) {
+            Write-Progress -Activity "Timer" -PercentComplete ($s * 100 / $CountDown) -Status "$(([System.Math]::Round((($s) / $CountDown * 100), 0)))%" -SecondsRemaining ($CountDown - $s)
+            $WindowsShell.SendKeys("{SCROLLLOCK}")
+            $s = $StopWatch.Elapsed.TotalSeconds
+        }
+    }
+    end {
+        $StopWatch.Stop()
+        Invoke-SpeechSynthesizer -String "Time is up" -Volume 100
+        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$WindowsShell) | Out-Null
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
+    }
+}
+
+function Get-Covid {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]] $Country
+    )
+
+    $Response = foreach ($c in $Country) {
+        Invoke-RestMethod -Uri "https://api.covid19api.com/dayone/country/${c}/status/confirmed" | Write-Output | Select-Object -Last 7
+
+    }
+    
+    $Response | Select-Object -Property Country, Cases, Status, Date | Write-Output
+
+}
+
 #endregion PowerShell Macros
 
 #region Aliases
@@ -396,41 +443,10 @@ function prompt {
     return $UserPrompt
 }
 
-function Start-Timer {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
-        [int] $Minutes,
-
-        [Parameter(Mandatory = $true, ParameterSetName = "Seconds")]
-        [int] $Seconds
-    )
-    begin {
-        $WindowsShell = New-Object -ComObject "WScript.Shell"
-        $CountDown = if ($Minutes) { $Minutes * 60 } else { $Seconds }
-        $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
-        $s = 0
-    }
-    process {
-        while ($s -le $CountDown) {
-            Write-Progress -Activity "Timer" -PercentComplete ($s * 100 / $CountDown) -Status "$(([System.Math]::Round((($s) / $CountDown * 100), 0)))%" -SecondsRemaining ($CountDown - $s)
-            $WindowsShell.SendKeys("{SCROLLLOCK}")
-            $s = $StopWatch.Elapsed.TotalSeconds
-        }
-    }
-    end {
-        $StopWatch.Stop()
-        Invoke-SpeechSynthesizer -String "Time is up" -Volume 100
-        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$WindowsShell) | Out-Null
-        [System.GC]::Collect()
-        [System.GC]::WaitForPendingFinalizers()
-    }
-}
-
 #endregion Command Prompt
 
 #region On Startup
 
-Start-Greeting
+#Start-Greeting
 
 #endregion
