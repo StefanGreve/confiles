@@ -384,7 +384,39 @@ function Get-Covid {
     }
     
     $Response | Select-Object -Property Country, Cases, Status, Date | Write-Output
+}
 
+function Measure-Performance {
+    [Alias("time")]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Once", Position = 0)]
+        [switch] $Once,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "Loop", Position = 0)]
+        [int] $Loop,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [string] $Command
+    )
+    begin {
+        $watch = [System.Diagnostics.Stopwatch]::new()
+    }
+    process {
+        if ($Once) {
+            $watch.Start()
+            Invoke-Expression $Command
+            $watch.Stop()
+            Write-Output $watch.Elapsed.TotalSeconds
+        }
+        else {
+            $Results = 1..$Loop | ForEach-Object { $watch.Restart(); Invoke-Expression $Command | Out-Null; Write-Output $watch.Elapsed.TotalSeconds }
+            $Results | Measure-Object -Minimum -Maximum -Average | Select-Object Minimum, Maximum, Average | Write-Output
+        }
+    }
+    end {
+
+    }
 }
 
 #endregion PowerShell Macros
