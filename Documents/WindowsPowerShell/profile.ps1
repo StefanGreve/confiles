@@ -343,6 +343,9 @@ function Start-Greeting {
 function Start-Timer {
     [CmdletBinding()]
     param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Hours")]
+        [int] $Hours,
+
         [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
         [int] $Minutes,
 
@@ -351,7 +354,7 @@ function Start-Timer {
     )
     begin {
         $WindowsShell = New-Object -ComObject "WScript.Shell"
-        $CountDown = if ($Minutes) { $Minutes * 60 } else { $Seconds }
+        $CountDown = if ($Hours) { $Hours * 3600 } elseif ($Minutes) { $Minutes * 60 } else { $Seconds }
         $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
         $s = 0
     }
