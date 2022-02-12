@@ -249,7 +249,7 @@ function ConvertTo-Pdf {
     }
     end {
         $Word.Quit()
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject([System.__ComObject]$Word) | Out-Null
+        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$Word) | Out-Null
         [System.GC]::Collect()
         [System.GC]::WaitForPendingFinalizers()
     }
@@ -419,6 +419,47 @@ function Measure-Performance {
     }
     end {
 
+    }
+}
+
+function Get-Message {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [string] $Filter,
+
+        [Parameter(Position = 1)]
+        [int] $First = 0,
+
+        [Parameter(Position = 2)]
+        [switch] $Unread
+    )
+    begin {
+        Add-Type -AssemblyName "Microsoft.Office.Interop.Outlook"
+        $Outlook = New-Object -ComObject Outlook.Application
+        $NameSpace = $Outlook.GetNameSpace("MAPI")
+        $Inbox = $NameSpace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
+    }
+    process {
+        $Mails = $Inbox.Items.Restrict("[Unread] = ${Unread}")
+        $Mails.Sort("ReceivedTime", $true)
+
+        if ($Filter) {
+            $Mails = $Mails | Where-Object { $_.Subject -Match $Filter -or $_.Body -Match $Filter }
+        }
+
+        if ($First) {
+            $Mails = $Mails | Select-Object -First $First
+        }
+
+
+        $Mails | Select-Object -Property SenderName, Subject, ReceivedTime, Body | Write-Output
+    }
+    end {
+        $Outlook.Quit()
+        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$Outlook) | Out-Null
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
     }
 }
 
