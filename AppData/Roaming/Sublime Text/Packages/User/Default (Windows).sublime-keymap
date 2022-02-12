@@ -15,6 +15,9 @@
 		"keys": ["alt+n"], "command": "new_pane"
 	},
 	{
+		"keys": ["alt+d"], "command": "clone_file", "args": {"add_to_selection": true}
+	},
+	{
 		"keys": ["alt+up"], "command": "swap_line_up"
 	},
 	{
