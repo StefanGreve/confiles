@@ -30,9 +30,11 @@ function Update-Configuration {
 
 function Get-RemoteBranches {
     if (Test-Path .git) {
-        foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master" -NotMatch)) {
-            $Branch = $Branch.ToString().Split('/')[1].Trim()
-            git branch --track $Branch "origin/$Branch"
+        foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master|origin/HEAD" -NotMatch)) {
+            $Branch = ($Branch -Split '/', 2).Trim()[1]
+            if (-not $(git show-ref refs/heads/$Branch)) {
+                git branch --track $Branch "origin/${Branch}"
+            }
         }
     }
     else {
@@ -417,9 +419,7 @@ function Measure-Performance {
             $Results | Measure-Object -Minimum -Maximum -Average | Select-Object Minimum, Maximum, Average | Write-Output
         }
     }
-    end {
-
-    }
+    end {}
 }
 
 function Get-Message {
@@ -451,7 +451,6 @@ function Get-Message {
         if ($First) {
             $Mails = $Mails | Select-Object -First $First
         }
-
 
         $Mails | Select-Object -Property SenderName, Subject, ReceivedTime, Body | Write-Output
     }
