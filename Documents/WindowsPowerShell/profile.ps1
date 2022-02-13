@@ -462,6 +462,41 @@ function Get-Message {
     }
 }
 
+function Set-EnvironmentVariable {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [string] $Key = "PATH",
+
+        [Parameter(Position = 1, Mandatory = $true)]
+        [string] $Value,
+
+        [Parameter(Position = 2)]
+        [ValidateSet("User", "Machine")]
+        [string] $Scope = "User"
+    )
+
+    $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
+    $NewValue = [Environment]::GetEnvironmentVariable($Key, $EnvironmentVariableTarget) + ";${Value}"
+    [Environment]::SetEnvironmentVariable($Key, $NewValue, $EnvironmentVariableTarget)
+}
+
+function Get-EnvironmentVariable {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [string] $Key = "PATH",
+
+        [Parameter(Position = 1)]
+        [ValidateSet("User, Machine")]
+        [string] $Scope = "User"
+    )
+
+    $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
+    $EnvironmentVariables = [Environment]::GetEnvironmentVariable($Key, $EnvironmentVariableTarget)
+    Write-Output $EnvironmentVariables
+}
+
 #endregion PowerShell Macros
 
 #region Aliases
