@@ -292,7 +292,37 @@ function Start-Lesson {
 }
 
 function Get-Calendar {
-    python -c "from calendar import calendar; print(calendar($(Get-Date -Format yyyy),2,1,6,3))"
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [ValidateSet("Day", "Week", "Month", "Year")]
+        [string] $Span = "Day"
+    )
+    begin {
+        Add-Type -AssemblyName "Microsoft.Office.Interop.Outlook"
+        $Outlook = New-Object -ComObject Outlook.Application
+        $NameSpace = $Outlook.GetNameSpace("MAPI")
+        $Calendar = $NameSpace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderCalendar)
+    }
+    process {
+        $Today = Get-Date
+        $Days = switch ($Span) {
+            Day { 1 }
+            Week { 7 }
+            Month { [DateTime]::DaysInMonth($Today.Year, $Today.Month) }
+            Year { 365 }
+        }
+
+        $CalendarItems = $Calendar.Items
+        $Events = $CalendarItems | Where-Object { $_.Start -ge $Today -and $_.End -le $Today.AddDays($Days) }
+        $Events | Select-Object -Property Subject, Start, Duration, Location, Organizer, RequiredAttendees, IsOnlineMeeting | Write-Output
+    }
+    end {
+        $Outlook.Quit()
+        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$Outlook) | Out-Null
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
+    }
 }
 
 function Get-HardwareInfo {
