@@ -313,9 +313,12 @@ function Get-Calendar {
             Year { 365 }
         }
 
-        $CalendarItems = $Calendar.Items
-        $Events = $CalendarItems | Where-Object { $_.Start -ge $Today -and $_.End -le $Today.AddDays($Days) }
-        $Events | Select-Object -Property Subject, Start, Duration, Location, Organizer, RequiredAttendees, IsOnlineMeeting | Write-Output
+        $Events = $Calendar.Items
+        $Events.IncludeRecurrences = $true
+        $Events.Sort("[Start]")
+        $Filter = "[MessageClass]='IPM.Appointment' AND [Start] > '$($Today.AddDays(-1).ToShortDateString()) 00:00' AND [End] < '$($Today.AddDays($Days).ToShortDateString()) 00:00'"
+        $FilteredEvents = $Events.Restrict($Filter)
+        $FilteredEvents | Select-Object -Property Subject, Start, Duration, Location, Organizer, RequiredAttendees, IsOnlineMeeting, IsRecurring | Write-Output
     }
     end {
         $Outlook.Quit()
