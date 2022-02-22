@@ -385,7 +385,10 @@ function Start-Timer {
         [int] $Minutes,
 
         [Parameter(Mandatory = $true, ParameterSetName = "Seconds")]
-        [int] $Seconds
+        [int] $Seconds,
+
+        [Parameter()]
+        [switch] $SendKeySequence
     )
     begin {
         $WindowsShell = New-Object -ComObject "WScript.Shell"
@@ -396,7 +399,7 @@ function Start-Timer {
     process {
         while ($s -le $CountDown) {
             Write-Progress -Activity "Timer" -PercentComplete ($s * 100 / $CountDown) -Status "$(([System.Math]::Round((($s) / $CountDown * 100), 0)))%" -SecondsRemaining ($CountDown - $s)
-            $WindowsShell.SendKeys("{SCROLLLOCK}")
+            if ($SendKeySequence) { $WindowsShell.SendKeys("{SCROLLLOCK}") }
             $s = $StopWatch.Elapsed.TotalSeconds
         }
     }
