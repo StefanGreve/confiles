@@ -6,7 +6,7 @@
     	"Vintage",
     ],
     "font_face": "More Perfect DOS VGA",
-    "font_size": 16,
+    "font_size": 13,
     "font_options": ["no_italic", "no_bold"],
     "rules": [
     	80,
@@ -31,6 +31,7 @@
     "auto_complete_include_snippets_when_typing": false,
     "show_encoding": true,
     "show_line_endings": true,
+    "show_navigation_bar": false,
     "hardware_acceleration": "none",
     "remember_full_screen": true,
     "remember_layout": true,
