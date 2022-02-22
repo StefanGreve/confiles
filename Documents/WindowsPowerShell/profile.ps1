@@ -402,10 +402,15 @@ function Start-Timer {
     }
     end {
         $StopWatch.Stop()
-        Invoke-SpeechSynthesizer -String "Time is up" -Volume 100
         [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.__ComObject]$WindowsShell) | Out-Null
         [System.GC]::Collect()
         [System.GC]::WaitForPendingFinalizers()
+
+        while ($true) {
+            for ($i = 37; $i -le 32767; $i += 10) {
+                [Console]::Beep($i, 300 + $i)
+            }
+        }
     }
 }
 
@@ -587,9 +592,3 @@ function prompt {
 }
 
 #endregion Command Prompt
-
-#region On Startup
-
-#Start-Greeting
-
-#endregion
