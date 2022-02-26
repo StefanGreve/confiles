@@ -104,46 +104,65 @@ function Export-Icon {
 
 function Get-FileCount {
     param(
-        [Parameter()]
-        [string]$Path = (Get-Location).Path
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$Path
     )
 
-    begin {
-        $Total = 0
-    }
     process {
-        Get-ChildItem -Path $Path -Recurse -File | Group-Object Extension -NoElement | Sort-Object Count -Descending | ForEach-Object {
-            $Total += $_.Count
+        foreach ($p in $Path) {
+            $Count = $(Get-ChildItem -Path $p -File -Recurse | Measure-Object).Count
+            [PSCustomObject]@{ Count = $Count; Path = $(Resolve-Path $p -Relative); } | Write-Output
         }
-    }
-    end {
-        Write-Output $Total
     }
 }
 
 function Get-FileSize {
     param(
-        [Parameter(Mandatory = $True)]
-        [string]$Path,
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$Path,
 
         [Parameter()]
         [ValidateSet('B', 'KB', 'MB', 'GB', 'TB')]
         [string]$Unit = 'B'
     )
 
-    begin {
-        $Length = (Get-item $Path).Length
-    }
     process {
-        switch ($Unit) {
-            B { Write-Output $Length }
-            KB { Write-Output $(($Length / 1KB)) }
-            MB { Write-Output $(($Length / 1MB)) }
-            GB { Write-Output $(($Length / 1GB)) }
-            TB { Write-Output $(($Length / 1TB)) }
+        foreach ($p in $Path) {
+            $Size = switch ($Unit) {
+                B { (Get-item $Path).Length }
+                KB { (Get-item $Path).Length / 1KB }
+                MB { (Get-item $Path).Length / 1MB }
+                GB { (Get-item $Path).Length / 1GB }
+                TB { (Get-item $Path).Length / 1TB }
+            }
+
+            [PSCustomObject]@{ Size = $Size; Unit = $Unit; Path = $(Resolve-Path $Path -Relative ) } | Write-Output
         }
     }
-    end {}
+}
+
+function Get-StringHash {
+    param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$String,
+
+        [Parameter()]
+        [ValidateSet('MD5', 'SHA1', 'SHA256', 'SHA384', 'SHA512')]
+        [string]$Algorithm = 'MD5'
+    )
+
+    process {
+        $StringAsStream = [System.IO.MemoryStream]::new()
+
+        foreach ($s in $String) {
+            $Writer = [System.IO.StreamWriter]::new($StringAsStream)
+            $Writer.write($s)
+            $Writer.Flush()
+            $StringAsStream.Position = 0
+            $HashObject = Get-FileHash -InputStream $StringAsStream -Algorithm $Algorithm
+            [PSCustomObject]@{Hash = $HashObject.Hash; String = $s; Algorithm = $Algorithm } | Write-Output
+        }
+    }
 }
 
 function Get-InstalledVoices {
@@ -178,29 +197,6 @@ function Invoke-SpeechSynthesizer {
         $SpeechSynthesizer.Volume = $Volume
         $SpeechSynthesizer.SelectVoice($Voice)
         $SpeechSynthesizer.Speak($String)
-    }
-    end {}
-}
-
-function Get-Hash {
-    param (
-        [Parameter(Mandatory = $True)]
-        [string]$Value,
-
-        [Parameter()]
-        [ValidateSet('MD5', 'SHA1', 'SHA256', 'SHA384', 'SHA512')]
-        [string]$Algorithm = 'MD5'
-    )
-
-    begin {
-        $StringAsStream = [System.IO.MemoryStream]::new()
-        $Writer = [System.IO.StreamWriter]::new($stringAsStream)
-    }
-    process {
-        $Writer.write($Value)
-        $Writer.Flush()
-        $StringAsStream.Position = 0
-        Write-Output $(Get-FileHash -InputStream $stringAsStream -Algorithm $Algorithm | Select-Object Hash)
     }
     end {}
 }
@@ -428,7 +424,7 @@ function Get-Covid {
         Invoke-RestMethod -Uri "https://api.covid19api.com/dayone/country/${c}/status/confirmed" | Write-Output | Select-Object -Last 7
 
     }
-    
+
     $Response | Select-Object -Property Country, Cases, Status, Date | Write-Output
 }
 
