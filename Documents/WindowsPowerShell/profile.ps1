@@ -570,8 +570,7 @@ function prompt {
     }
 
     if ($env:VIRTUAL_ENV) {
-        $VenvPrompt = ([System.IO.Path]::GetFileName($env:VIRTUAL_ENV))
-        Write-Host " ($VenvPrompt)" -NoNewline -ForegroundColor Yellow
+        Write-Host " ($([System.IO.Path]::GetFileName($env:VIRTUAL_ENV)))" -NoNewline -ForegroundColor Yellow
     }
 
     return $UserPrompt
