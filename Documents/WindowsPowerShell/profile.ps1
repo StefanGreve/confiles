@@ -552,20 +552,7 @@ Set-Alias -Name touch -Value New-Item
 #region Command Prompt
 
 function Write-BranchName {
-    try {
-        $Branch = git rev-parse --abbrev-ref HEAD
-
-        if ($Branch -eq "HEAD") {
-            $Branch = git rev-parse --short HEAD
-            Write-Host " ($Branch)" -ForegroundColor "red" -NoNewline
-        }
-        else {
-            Write-Host " ($Branch)" -ForegroundColor "blue" -NoNewline
-        }
-    }
-    catch {
-        Write-Host " (no branches yet)" -ForegroundColor "yellow" -NoNewline
-    }
+    Write-Host " ($(git rev-parse --abbrev-ref HEAD))" -ForegroundColor Blue -NoNewline
 }
 
 function prompt {
