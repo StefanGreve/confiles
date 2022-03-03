@@ -428,6 +428,38 @@ function Get-Covid {
     $Response | Select-Object -Property Country, Cases, Status, Date | Write-Output
 }
 
+function Get-XKCD {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Num", Position = 0, ValueFromPipeline = $true)]
+        [int[]] $Num,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "All")]
+        [switch] $All
+    )
+    begin {
+        function Get-Extension ([string]$Uri) { ($Uri | Split-Path -Leaf).Split(".")[1] | Write-Output }
+    }
+    process {
+        if ($Num) {
+            foreach ($i in $Num) {
+                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
+                Invoke-WebRequest -Uri $Response.Img -OutFile "$i.$(Get-Extension($Response.Img))"
+            }
+        }
+        if ($All) {
+            $WebClient = New-Object -TypeName Net.WebClient
+            $LastNum = (Invoke-RestMethod -Uri "https://xkcd.com/info.0.json").Num
+
+            for ($i = 1; $i -le $LastNum; $i++) {
+                Write-Progress -Activity "Download XKCD $i" -PercentComplete ($i * 100 / $LastNum) -Status "$(([System.Math]::Round((($i) / $LastNum * 100), 0)))%"
+                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
+                $WebClient.DownloadFile($Response.Img, $(Join-Path -Path $PWD -ChildPath "$($Response.Num).$(Get-Extension($Response.Img))"))
+            }
+        }
+    }
+}
+
 function Measure-Performance {
     [Alias("time")]
     [CmdletBinding()]
