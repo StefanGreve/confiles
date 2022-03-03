@@ -551,29 +551,24 @@ Set-Alias -Name touch -Value New-Item
 
 #region Command Prompt
 
-function Write-BranchName {
-    Write-Host " ($(git rev-parse --abbrev-ref HEAD))" -ForegroundColor Blue -NoNewline
-}
-
 function prompt {
     Write-Host '[' -NoNewline
     Write-Host $env:UserName -NoNewline -ForegroundColor Cyan
     Write-Host "@$env:ComputerName " -NoNewline
     $Path = (Get-Item "$($executionContext.SessionState.Path.CurrentLocation)").BaseName
-    $UserPrompt = "`n$('>' * ($NestedPromptLevel + 1)) "
 
     Write-Host $Path -NoNewline -ForegroundColor Green
     Write-Host ']' -NoNewline
 
     if (Test-Path .git) {
-        Write-BranchName
+        Write-Host " ($(git rev-parse --abbrev-ref HEAD))" -ForegroundColor Blue -NoNewline
     }
 
     if ($env:VIRTUAL_ENV) {
         Write-Host " ($([System.IO.Path]::GetFileName($env:VIRTUAL_ENV)))" -NoNewline -ForegroundColor Yellow
     }
 
-    return $UserPrompt
+    return "`n$('>' * ($NestedPromptLevel + 1)) "
 }
 
 #endregion Command Prompt
