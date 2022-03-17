@@ -44,7 +44,7 @@ function Get-RemoteBranches {
 
 function Get-Repository {
     param(
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory)]
         [string]$RepositoryName
     )
 
@@ -80,7 +80,7 @@ function Get-AllRepositories {
 
 function Export-Icon {
     param(
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory)]
         [string]$Path
     )
 
@@ -104,7 +104,7 @@ function Export-Icon {
 
 function Get-FileCount {
     param(
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [string[]]$Path
     )
 
@@ -118,7 +118,7 @@ function Get-FileCount {
 
 function Get-FileSize {
     param(
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [string[]]$Path,
 
         [Parameter()]
@@ -143,7 +143,7 @@ function Get-FileSize {
 
 function Get-StringHash {
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [string[]]$String,
 
         [Parameter()]
@@ -173,7 +173,7 @@ function Get-InstalledVoices {
 
 function Invoke-SpeechSynthesizer {
     param(
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory)]
         [string]$String,
 
         [Parameter()]
@@ -218,14 +218,14 @@ function Get-WorldClock {
 function ConvertTo-Pdf {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory)]
         [string[]] $Path
     )
 
     begin {
         Add-Type -AssemblyName "Microsoft.Office.Interop.Word"
         $Word = New-Object -ComObject Word.Application
-        $Word.Visible = $False
+        $Word.Visible = $false
         $SaveFormat = [Microsoft.Office.Interop.Word.WdSaveFormat]::wdFormatPDF
     }
     process {
@@ -234,10 +234,10 @@ function ConvertTo-Pdf {
                 $File = Get-ChildItem $_
 
                 if ($File.Extension -like ".doc?") {
-                    $Document = $Word.Documents.Open($File.FullName, $False, $True)
+                    $Document = $Word.Documents.Open($File.FullName, $false, tTrue)
                     Write-Verbose "Processing $File . . ."
                     $Document.SaveAs([ref][System.Object]$File.FullName.Replace("docx", "pdf"), [ref]$SaveFormat)
-                    $Document.close($False)
+                    $Document.close($false)
                 }
             }
         }
@@ -374,13 +374,13 @@ function Start-Greeting {
 function Start-Timer {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true, ParameterSetName = "Hours")]
+        [Parameter(Mandatory, ParameterSetName = "Hours")]
         [int] $Hours,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "Minutes")]
+        [Parameter(Mandatory, ParameterSetName = "Minutes")]
         [int] $Minutes,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "Seconds")]
+        [Parameter(Mandatory, ParameterSetName = "Seconds")]
         [int] $Seconds,
 
         [Parameter()]
@@ -416,7 +416,7 @@ function Start-Timer {
 function Get-Covid {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [string[]] $Country
     )
 
@@ -431,10 +431,10 @@ function Get-Covid {
 function Get-XKCD {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true, ParameterSetName = "Num", Position = 0, ValueFromPipeline = $true)]
+        [Parameter(Mandatory, ParameterSetName = "Num", Position = 0, ValueFromPipeline)]
         [int[]] $Num,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "All")]
+        [Parameter(Mandatory, ParameterSetName = "All")]
         [switch] $All
     )
     begin {
@@ -464,27 +464,27 @@ function Measure-Performance {
     [Alias("time")]
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true, ParameterSetName = "Once", Position = 0)]
+        [Parameter(Mandatory, ParameterSetName = "Once", Position = 0)]
         [switch] $Once,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "Loop", Position = 0)]
+        [Parameter(Mandatory, ParameterSetName = "Loop", Position = 0)]
         [int] $Loop,
 
         [Parameter(Mandatory = $true, Position = 1)]
         [string] $Command
     )
     begin {
-        $watch = [System.Diagnostics.Stopwatch]::new()
+        $Watch = [System.Diagnostics.Stopwatch]::new()
     }
     process {
         if ($Once) {
             $watch.Start()
             Invoke-Expression $Command
-            $watch.Stop()
-            Write-Output $watch.Elapsed.TotalSeconds
+            $Watch.Stop()
+            Write-Output $Watch.Elapsed.TotalSeconds
         }
         else {
-            $Results = 1..$Loop | ForEach-Object { $watch.Restart(); Invoke-Expression $Command | Out-Null; Write-Output $watch.Elapsed.TotalSeconds }
+            $Results = 1..$Loop | ForEach-Object { $Watch.Restart(); Invoke-Expression $Command | Out-Null; Write-Output $Watch.Elapsed.TotalSeconds }
             $Results | Measure-Object -Minimum -Maximum -Average | Select-Object Minimum, Maximum, Average | Write-Output
         }
     }
@@ -537,7 +537,7 @@ function Set-EnvironmentVariable {
         [Parameter(Position = 0)]
         [string] $Key = "PATH",
 
-        [Parameter(Position = 1, Mandatory = $true)]
+        [Parameter(Position = 1, Mandatory)]
         [string] $Value,
 
         [Parameter(Position = 2)]
