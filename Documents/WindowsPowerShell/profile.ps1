@@ -234,7 +234,7 @@ function ConvertTo-Pdf {
                 $File = Get-ChildItem $_
 
                 if ($File.Extension -like ".doc?") {
-                    $Document = $Word.Documents.Open($File.FullName, $false, tTrue)
+                    $Document = $Word.Documents.Open($File.FullName, $false, $true)
                     Write-Verbose "Processing $File . . ."
                     $Document.SaveAs([ref][System.Object]$File.FullName.Replace("docx", "pdf"), [ref]$SaveFormat)
                     $Document.close($false)
