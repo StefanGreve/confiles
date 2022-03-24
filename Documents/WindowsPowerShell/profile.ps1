@@ -566,6 +566,27 @@ function Get-EnvironmentVariable {
     Write-Output $EnvironmentVariables
 }
 
+function Remove-EnvironmentVariable {
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
+    param(
+        [Parameter(Position = 0, Mandatory)]
+        [string] $Key,
+
+        [Parameter()]
+        [string] $Value,
+
+        [ValidateSet("User, Machine")]
+        [string] $Scope = "User"
+    )
+    $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
+    $RemoveValue = if ($Key -eq "PATH") { (Get-EnvironmentVariable -Key "PATH" | Where-Object { $_ -ne $Value }) -join ";" } else { $null }
+    $ExampleOutput = if ($Key -eq "PATH") { "`n`nNEW PATH VALUE`n==============`n`n$($RemoveValue -split ";" -join "`n")`n`ns" } else { $null }
+
+    if ($PSCmdlet.ShouldProcess("Removing value '$Value' from environment variable '$Key'", "Are you sure you want to remove '$Value' from the environment variable '$Key'?$ExampleOutput", "Remove '$Value' from '$Key'")) {
+        [Environment]::SetEnvironmentVariable($Key, $RemoveValue, $EnvironmentVariableTarget)
+    }
+}
+
 function Start-ElevatedConsole {
     Start-Process (Get-Process -Id $PID).Path -Verb RunAs -ArgumentList @("-NoExit", "-Command", "Set-Location '$($PWD.Path)'")
 }
