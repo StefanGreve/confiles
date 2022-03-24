@@ -566,6 +566,10 @@ function Get-EnvironmentVariable {
     Write-Output $EnvironmentVariables
 }
 
+function Start-ElevatedConsole {
+    Start-Process (Get-Process -Id $PID).Path -Verb RunAs -ArgumentList @("-NoExit", "-Command", "Set-Location '$($PWD.Path)'")
+}
+
 #endregion PowerShell Macros
 
 #region Aliases
@@ -578,6 +582,7 @@ Set-Alias -Name export -Value Export-Icon
 Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
+Set-Alias -Name elevate -Value Start-ElevatedConsole
 
 #endregion Aliases
 
