@@ -562,7 +562,7 @@ function Get-EnvironmentVariable {
     )
 
     $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
-    $EnvironmentVariables = [Environment]::GetEnvironmentVariable($Key, $EnvironmentVariableTarget)
+    $EnvironmentVariables = [Environment]::GetEnvironmentVariable($Key, $EnvironmentVariableTarget) -Split ";"
     Write-Output $EnvironmentVariables
 }
 
