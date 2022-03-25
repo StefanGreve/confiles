@@ -267,20 +267,20 @@ function Convert-ImageToPdf {
     )
     $Images = Get-ChildItem -Path $Path\* -Include "*.jpg", "*.png"
 
-    $PDF = if ($Images.Count -ge 1) {
-        $Images | Foreach-Object {
-            New-PDFPage {
-                New-PDFImage -ImagePath $_.FullName
-                Write-Verbose "Converting $($_.FullName)"
+    $Destination = Join-Path -Path $Path -ChildPath $OutFile
+    New-PDF -PageSize A4 {
+        if ($Images.Count -ge 1) {
+            $Images | Foreach-Object {
+                New-PDFPage {
+                    New-PDFImage -ImagePath $_.FullName
+                    Write-Verbose "Converting $($_.FullName)"
+                }
             }
         }
-    }
-    else {
-        Write-Error "There are no images in '$Path'. Aborting operation." -ErrorAction Stop
-    }
-
-    $Destination = Join-Path -Path $Path -ChildPath $OutFile
-    New-PDF -PageSize A4 { $PDF } -FilePath $Destination
+        else {
+            Write-Error "There are no images in '$Path'. Aborting operation." -ErrorAction Stop
+        }
+    } -FilePath $Destination
 
     if ($Show) {
         Invoke-Item $Destination
