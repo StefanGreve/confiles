@@ -189,7 +189,7 @@ function Invoke-SpeechSynthesizer {
     )
 
     begin {
-        Add-Type -AssemblyName "System.Speech"
+        Add-Type -AssemblyName System.Speech
         $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
     }
     process {
@@ -223,7 +223,7 @@ function ConvertTo-Pdf {
     )
 
     begin {
-        Add-Type -AssemblyName "Microsoft.Office.Interop.Word"
+        Add-Type -AssemblyName Microsoft.Office.Interop.Word
         $Word = New-Object -ComObject Word.Application
         $Word.Visible = $false
         $SaveFormat = [Microsoft.Office.Interop.Word.WdSaveFormat]::wdFormatPDF
@@ -333,7 +333,7 @@ function Get-Calendar {
         [string] $Span = "Day"
     )
     begin {
-        Add-Type -AssemblyName "Microsoft.Office.Interop.Outlook"
+        Add-Type -AssemblyName Microsoft.Office.Interop.Outlook
         $Outlook = New-Object -ComObject Outlook.Application
         $NameSpace = $Outlook.GetNameSpace("MAPI")
         $Calendar = $NameSpace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderCalendar)
@@ -405,7 +405,7 @@ function Start-Greeting {
             Default { "evening.txt"; Break }
         }
 
-        Invoke-SpeechSynthesizer -String $(Get-Content $HOME\Settings\$File | Get-Random) -Rate 1 -Voice "Microsoft Haruka Desktop"
+        Invoke-SpeechSynthesizer -String $(Get-Content "$HOME\Settings\$File" | Get-Random) -Rate 1 -Voice "Microsoft Haruka Desktop"
     }
 }
 
@@ -425,7 +425,7 @@ function Start-Timer {
         [switch] $SendKeySequence
     )
     begin {
-        $WindowsShell = New-Object -ComObject "WScript.Shell"
+        $WindowsShell = New-Object -ComObject WScript.Shell
         $CountDown = if ($Hours) { $Hours * 3600 } elseif ($Minutes) { $Minutes * 60 } else { $Seconds }
         $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
         $s = 0
@@ -542,7 +542,7 @@ function Get-Message {
         [switch] $Unread
     )
     begin {
-        Add-Type -AssemblyName "Microsoft.Office.Interop.Outlook"
+        Add-Type -AssemblyName Microsoft.Office.Interop.Outlook
         $Outlook = New-Object -ComObject Outlook.Application
         $NameSpace = $Outlook.GetNameSpace("MAPI")
         $Inbox = $NameSpace.GetDefaultFolder([Microsoft.Office.Interop.Outlook.OlDefaultFolders]::olFolderInbox)
