@@ -253,6 +253,44 @@ function ConvertTo-Pdf {
     }
 }
 
+function Convert-ImageToPdf {
+    <# NOTE: Requires PSWritePDF module from PS Gallery #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [string] $Path = $PWD,
+
+        [Parameter(Mandatory)]
+        [string] $OutFile,
+
+        [switch] $Show
+    )
+    $Images = Get-ChildItem -Path $Path\* -Include "*.jpg", "*.png"
+
+    $PDF = if ($Images.Count -ge 1) {
+        $Images | Foreach-Object {
+            New-PDFPage {
+                New-PDFImage -ImagePath $_.FullName
+                Write-Verbose "Converting $($_.FullName)"
+            }
+        }
+    }
+    else {
+        Write-Error "There are no images in '$Path'. Aborting operation." -ErrorAction Stop
+    }
+
+    $Destination = Join-Path -Path $Path -ChildPath $OutFile
+    New-PDF -PageSize A4 { $PDF } -FilePath $Destination
+
+    if ($Show) {
+        Invoke-Item $Destination
+    }
+
+    $Document = Get-PDF -FilePath $Destination
+    Get-PDFDetails -Document $Document
+    Close-PDF -Document $Document
+}
+
 function Start-Lesson {
     [CmdletBinding()]
     param(
