@@ -6,6 +6,8 @@ $global:VSRC = "$env:APPDATA\Code\User\settings.json"
 $global:WTRC = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 $global:WGRC = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
+$global:Desktop = [Environment]::GetFolderPath("Desktop")
+
 #endregion Global Profile Variables
 
 #region Environment Variables
@@ -567,6 +569,49 @@ function Get-Message {
         [System.GC]::Collect()
         [System.GC]::WaitForPendingFinalizers()
     }
+}
+
+function Publish-CSharpProject {
+    param(
+        [string] $Path = $PWD,
+
+        [ValidateSet("Debug", "Release")]
+        [string] $Mode = "Release",
+
+        [ValidateSet("win-x64", "win-x86", "win-arm", "win-arm64", "linux-x64", "linux-musl-x64", "linux-arm", "linux-arm64", "osx-x64")]
+        [string] $Runtime = "win-x64",
+
+        [string] $OutputDirectory = [Environment]::GetFolderPath("Desktop")
+    )
+
+    dotnet build $Path
+
+    switch ($Mode) {
+        "Debug" {
+            $Parameters = @(
+                "--configuration", $Mode
+                "--runtime", $Runtime
+                "--self-contained", $true
+            )
+        }
+        "Release" {
+            $Parameters = @(
+                "--configuration", $Mode
+                "--runtime", $Runtime
+                "--self-contained", $true
+                "--output", $OutputDirectory
+                "-p:PublishSingleFile=true"
+                "-p:PublishTrimmed=true"
+                "-p:IncludeNativeLibrariesForSelfExtract=true"
+                "-p:TrimMode=Link"
+                "-p:DebugType=None"
+                "-p:DebugSymbols=false"
+                "--output", $OutputDirectory
+            )
+        }
+    }
+
+    dotnet publish $Path $Parameters
 }
 
 function Set-EnvironmentVariable {
