@@ -586,16 +586,16 @@ function Publish-CSharpProject {
 
     dotnet build $Path
 
-    switch ($Mode) {
+    $Parameters = switch ($Mode) {
         "Debug" {
-            $Parameters = @(
+            @(
                 "--configuration", $Mode
                 "--runtime", $Runtime
                 "--self-contained", $true
             )
         }
         "Release" {
-            $Parameters = @(
+            @(
                 "--configuration", $Mode
                 "--runtime", $Runtime
                 "--self-contained", $true
