@@ -710,6 +710,7 @@ Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
 Set-Alias -Name elevate -Value Start-ElevatedConsole
+Set-Alias -Name ^ -Value Select-Object
 
 #endregion Aliases
 
