@@ -30,7 +30,7 @@ function Update-Configuration {
     git --git-dir="$HOME\Desktop\repos\confiles" --work-tree=$HOME $Args
 }
 
-function Get-RemoteBranches {
+function Get-AllBranches {
     if (Test-Path .git) {
         foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master|origin/HEAD" -NotMatch)) {
             $Branch = ($Branch -Split '/', 2).Trim()[1]
@@ -645,7 +645,7 @@ function Publish-DotnetProject {
     dotnet publish $Path $Parameters
 }
 
-function Set-EnvironmentVariable {
+function New-EnvironmentVariable {
     [CmdletBinding()]
     param(
         [Parameter(Position = 0)]
