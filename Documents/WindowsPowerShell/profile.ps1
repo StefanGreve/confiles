@@ -571,7 +571,38 @@ function Get-Message {
     }
 }
 
-function Publish-CSharpProject {
+function New-DotnetProject {
+    param(
+        [Parameter(Mandatory)]
+        [string] $Name,
+
+        [string] $Path = $PWD,
+
+        [ValidateSet("console", "classlib", "wpf", "winforms", "page", "blazorserver", "blazorwasm", "web", "mvc", "razor", "webapi")]
+        [string] $Template = "console",
+
+        [ValidateSet("C#", "F#", "VB")]
+        [string] $Language = "C#"
+    )
+
+    $OutputDirectory = Join-Path -Path $Path -ChildPath $Name
+    $RootDirectory = New-Item -ItemType Directory -Path $(Join-Path -Path $OutputDirectory -ChildPath $Name)
+    Set-Location $OutputDirectory
+
+    dotnet new sln
+    dotnet new $Template --name $Name --language $Language --output $RootDirectory
+    dotnet new gitignore --output $OutputDirectory
+    dotnet new editorconfig --output $OutputDirectory
+    dotnet sln add $Name
+    dotnet restore $OutputDirectory
+    dotnet build $OutputDirectory
+
+    git init
+    git add --all
+    git commit -m "Init commit"
+}
+
+function Publish-DotnetProject {
     param(
         [string] $Path = $PWD,
 
