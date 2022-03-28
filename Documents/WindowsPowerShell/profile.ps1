@@ -365,34 +365,26 @@ function Get-Calendar {
 }
 
 function Get-HardwareInfo {
-    begin {
-        $CIM_ComputerSystem = Get-CimInstance -ClassName CIM_ComputerSystem
-        $CIM_BIOSElement = Get-CimInstance -ClassName CIM_BIOSElement
-        $CIM_OperatingSystem = Get-CimInstance -ClassName CIM_OperatingSystem
-        $CIM_Processor = Get-CimInstance -ClassName CIM_Processor
-        $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object { $_.Name -eq $CIM_OperatingSystem.SystemDrive }
+    $ComputerInfo = Get-ComputerInfo
+    $CIM_ComputerSystem = Get-CimInstance -ClassName CIM_ComputerSystem
+    $CIM_LogicalDisk = Get-CimInstance -ClassName CIM_LogicalDisk | Where-Object { $_.Name -eq $ComputerInfo.OsSystemDrive }
+
+    [PSCustomObject]@{
+        CurrentUser                = $env:USERNAME
+        LocalComputerName          = $env:COMPUTERNAME
+        Manufacturer               = $ComputerInfo.CsManufacturer
+        Model                      = $ComputerInfo.CsModel
+        SerialNumber               = $ComputerInfo.OsSerialNumber
+        OperatingSystemName        = $ComputerInfo.WindowsProductName
+        OperatingSystemVersion     = $ComputerInfo.OsVersion
+        OperatingSystemBuildNumber = $ComputerInfo.OsBuildNumber
+        CPU                        = $ComputerInfo.CsProcessors.Name
+        RAM                        = '{0:N2}' -f ($CIM_ComputerSystem.TotalPhysicalMemory / 1GB)
+        SysDriveCapacity           = '{0:N2}' -f ($CIM_LogicalDisk.Size / 1GB)
+        SysDriveFreeSpace          = '{0:N2}' -f ($CIM_LogicalDisk.FreeSpace / 1GB)
+        SysDriveFreeSpacePercent   = '{0:N0}' -f ($CIM_LogicalDisk.FreeSpace / $CIM_LogicalDisk.Size * 100)
+        LastBootUpTime             = $ComputerInfo.OsLastBootUpTime
     }
-    process {
-        #TODO: Improve implementation
-        Write-Output $(New-Object PSObject -Property @{
-                LocalComputerName          = $env:COMPUTERNAME
-                Manufacturer               = $CIM_ComputerSystem.Manufacturer
-                Model                      = $CIM_ComputerSystem.Model
-                SerialNumber               = $CIM_BIOSElement.SerialNumber
-                CPU                        = $CIM_Processor.Name
-                SysDriveCapacity           = '{0:N2}' -f ($CIM_LogicalDisk.Size / 1GB)
-                SysDriveFreeSpace          = '{0:N2}' -f ($CIM_LogicalDisk.FreeSpace / 1GB)
-                SysDriveFreeSpacePercent   = '{0:N0}' -f ($CIM_LogicalDisk.FreeSpace / $CIM_LogicalDisk.Size * 100)
-                RAM                        = '{0:N2}' -f ($CIM_ComputerSystem.TotalPhysicalMemory / 1GB)
-                OperatingSystemName        = $CIM_OperatingSystem.Caption
-                OperatingSystemVersion     = $CIM_OperatingSystem.Version
-                OperatingSystemBuildNumber = $CIM_OperatingSystem.BuildNumber
-                OperatingSystemServicePack = $CIM_OperatingSystem.ServicePackMajorVersion
-                CurrentUser                = $CIM_ComputerSystem.UserName
-                LastBootUpTime             = $CIM_OperatingSystem.LastBootUpTime
-            })
-    }
-    end {}
 }
 
 function Get-Uptime {
