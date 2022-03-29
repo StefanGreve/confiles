@@ -637,7 +637,7 @@ function Publish-DotnetProject {
     dotnet publish $Path $Parameters
 }
 
-function New-EnvironmentVariable {
+function Set-EnvironmentVariable {
     [CmdletBinding()]
     param(
         [Parameter(Position = 0)]
@@ -685,8 +685,8 @@ function Remove-EnvironmentVariable {
         [string] $Scope = "User"
     )
     $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
-    $RemoveValue = if ($Key -eq "PATH") { (Get-EnvironmentVariable -Key "PATH" | Where-Object { $_ -ne $Value }) -join ";" } else { $null }
-    $ExampleOutput = if ($Key -eq "PATH") { "`n`nNEW PATH VALUE`n==============`n`n$($RemoveValue -split ";" -join "`n")`n`ns" } else { $null }
+    $RemoveValue = if ($Key -eq "PATH") { ([Environment]::GetEnvironmentVariable("PATH", $EnvironmentVariableTarget) -Split ";" | Where-Object { $_ -ne $Value }) -join ";" } else { $null }
+    $ExampleOutput = if ($Key -eq "PATH") { "`n`nNEW PATH VALUE`n==============`n`n$($RemoveValue -split ";" -join "`n")`n`n" } else { $null }
 
     if ($PSCmdlet.ShouldProcess("Removing value '$Value' from environment variable '$Key'", "Are you sure you want to remove '$Value' from the environment variable '$Key'?$ExampleOutput", "Remove '$Value' from '$Key'")) {
         [Environment]::SetEnvironmentVariable($Key, $RemoveValue, $EnvironmentVariableTarget)
