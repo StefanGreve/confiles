@@ -18,9 +18,14 @@
         120,
         160
     ],
-    "editor.tabCompletion": "on",
     "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
     "files.autoGuessEncoding": true,
+    "files.associations": {
+        "*.js": "javascriptreact"
+    },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.inputValidationSubjectLength": 72,
@@ -30,7 +35,6 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.settings.editor": "json",
     "workbench.sideBar.location": "right",
-    "workbench.activityBar.visible": true,
     "window.menuBarVisibility": "hidden",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
@@ -42,7 +46,9 @@
         "**/.classpath": true,
         "**/.project": true,
         "**/.settings": true,
-        "**/.factorypath": true
+        "**/.factorypath": true,
+        "**/__pycache__": true,
+        "venv/": true
     },
     "latex-workshop.view.pdf.viewer": "tab",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
@@ -68,9 +74,14 @@
     },
     "powershell.scriptAnalysis.enable": true,
     "powershell.startAutomatically": true,
-    "powershell.integratedConsole.focusConsoleOnExecute": false,
     "powershell.enableProfileLoading": true,
     "powershell.sideBar.CommandExplorerVisibility": true,
+    "[powershell]": {
+        "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
+        "editor.semanticHighlighting.enabled": true,
+        "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+        "editor.defaultFormatter": "ms-vscode.powershell"
+    },
     "jupyter.jupyterServerType": "local",
     "notebook.lineNumbers": "on",
     "[typescriptreact]": {
@@ -78,25 +89,21 @@
     },
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.tabSize": 2
     },
     "eslint.validate": [
         "javascript"
     ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "files.associations": {
-        "*.js": "javascriptreact"
-    },
     "prettier.jsxBracketSameLine": true,
     "[java]": {
         "editor.defaultFormatter": "redhat.java"
     },
     "bracketPairColorizer.depreciation-notice": false,
     "bookmarks.saveBookmarksInProject": true,
-    "workbench.colorTheme": "Visual Studio 2019 Dark",
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "liveServer.settings.donotVerifyTags": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 2,
 }
