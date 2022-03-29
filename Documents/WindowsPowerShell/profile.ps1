@@ -663,7 +663,7 @@ function Get-EnvironmentVariable {
         [string] $Key = "PATH",
 
         [Parameter(Position = 1)]
-        [ValidateSet("User, Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
 
@@ -681,7 +681,7 @@ function Remove-EnvironmentVariable {
         [Parameter()]
         [string] $Value,
 
-        [ValidateSet("User, Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
     $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
