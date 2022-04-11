@@ -1,5 +1,6 @@
 #region Global Profile Variables
 
+chcp 932 | Out-Null
 $PSDefaultParameterValues['*:Encoding'] = 'utf8'
 $global:PSRC = "$HOME\Documents\WindowsPowerShell\profile.ps1"
 $global:VSRC = "$env:APPDATA\Code\User\settings.json"
