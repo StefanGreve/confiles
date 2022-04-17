@@ -392,6 +392,26 @@ function Get-Uptime {
     Write-Output $((Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime)
 }
 
+function Set-PowerState {
+    [CmdletBinding()]
+    param(
+        [ValidateSet("Hibernate", "Suspend")]
+        [Parameter(Position = 0)]
+        [string] $State = "Suspend",
+
+        [switch] $Force,
+
+        [switch] $DisableWake
+    )
+    begin{
+        Add-Type -AssemblyName System.Windows.Forms
+        $PowerState = if ($State -eq "Hibernate") { [System.Windows.Forms.PowerState]::Hibernate } else { [System.Windows.Forms.PowerState]::Suspend }
+    }
+    process {
+        [System.Windows.Forms.Application]::SetSuspendState($PowerState, $Force, $DisableWake)
+    }
+}
+
 function Start-Greeting {
     if ($PSVersionTable.PSVersion.Major -le 5) {
         $File = switch ($(Get-Date -Format HH)) {
