@@ -4,40 +4,34 @@
 
 let mapleader=" "
 
-" load plugins
 call plug#begin('~/AppData/Local/nvim/plugged')
-    " improved syntax support
     Plug 'sheerun/vim-polyglot'
-    " file explorer
     Plug 'scrooloose/NERDTree'
-    " auto-pairs '(', '[', '{'
     Plug 'jiangmiao/auto-pairs'
-    " editorconfig
     Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
-syntax on			" turn on lexical highlighting
-filetype on			" enable file type detection
+syntax on
+filetype on
 set nocompatible
 set encoding=utf-8
 set expandtab
 set smarttab
-set shiftwidth=4	" one tab equals four spaces
+set shiftwidth=4
 set tabstop=4
-set lbr				" turn on line breaks
-set tw=240			" and set it to 240 chars
-set ai				" auto indent
-set si				" smart indent
-set number			" turn on (absolute) line numbers
-set ruler			" show line and column number
-set hlsearch		" highlight search results
+set lbr
+set tw=260
+set ai
+set si
+set number
+set ruler
+set hlsearch
 set magic
-set nobackup		" disable backups because we use git
+set nobackup
 set nowb
 set noswapfile
-set lazyredraw		" disable redraws during macro execution to improve performance
+set lazyredraw
 
-" format status lines
 set statusline=
 set statusline+=%1*\ %n\ %*     " buffer number
 set statusline+=%5*%{&ff}%*     " file format
@@ -67,7 +61,7 @@ autocmd BufWritePre * %s/\s\+$//e
 map <leader>o :setlocal spell! spelllang=en_us<CR>
 
 
-" navigate through split windows
+" move focuc between panes
 set splitbelow splitright
 map <C-h> <C-w>h
 map <C-j> <C-w>j
