@@ -74,6 +74,7 @@ nnoremap ,, <Esc>/<++><Enter>"_c4l
 
 " python
 nnoremap <Space> za
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 " latex
 autocmd FileType tex map ;c :!latexmk -cd "src/document.tex" -synctex=1 -shell-escape -interaction=nonstopmode -file-line-error -pdf<CR><CR>
