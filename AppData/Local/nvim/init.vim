@@ -12,6 +12,8 @@ call plug#begin('~/AppData/Local/nvim/plugged')
     Plug 'scrooloose/NERDTree'
     " auto-pairs '(', '[', '{'
     Plug 'jiangmiao/auto-pairs'
+    " editorconfig
+    Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 syntax on			" turn on lexical highlighting
