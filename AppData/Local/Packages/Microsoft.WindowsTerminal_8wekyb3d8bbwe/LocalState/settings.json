@@ -1,42 +1,71 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
         },
         {
-            "command": 
-            {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": {
                 "action": "newTab"
             },
             "keys": "ctrl+t"
         },
         {
-            "command": 
-            {
+            "command": {
+                "action": "closeTab"
+            },
+            "keys": "ctrl+w"
+        },
+        {
+            "command": {
                 "action": "splitPane",
                 "split": "right"
             },
             "keys": "ctrl+shift+\\"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "down"
             },
             "keys": "ctrl+shift+minus"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "left"
+            },
+            "keys": "ctrl+h"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "keys": "ctrl+j"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "keys": "ctrl+k"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "keys": "ctrl+l"
         },
         {
             "command": "find",
@@ -45,29 +74,19 @@
         {
             "command": "closePane",
             "keys": "ctrl+shift+w"
-        },
-        {
-            "command": 
-            {
-                "action": "closeTab"
-            },
-            "keys": "ctrl+w"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-    "profiles": 
-    {
-        "defaults": 
-        {
+    "profiles": {
+        "defaults": {
             "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\blackhole.jpg",
             "backgroundImageOpacity": 0.5,
             "commandline": "powershell.exe -nologo",
             "cursorColor": "#FFFFFF",
             "cursorShape": "bar",
-            "font": 
-            {
+            "font": {
                 "face": "Cascadia Mono",
                 "size": 12
             },
@@ -82,8 +101,7 @@
             "tabTitle": "PowerShell",
             "useAcrylic": false
         },
-        "list": 
-        [
+        "list": [
             {
                 "backgroundImage": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\BackgroundImages\\ring.jpg",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -nologo",
@@ -133,8 +151,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
