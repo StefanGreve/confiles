@@ -34,6 +34,7 @@ set noswapfile
 set lazyredraw
 set foldmethod=indent
 set foldlevel=99
+set clipboard^=unnamed,unnamedplus
 
 set statusline=
 set statusline+=%1*\ %n\ %*     " buffer number
