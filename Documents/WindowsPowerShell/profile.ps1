@@ -169,6 +169,20 @@ function Get-StringHash {
     }
 }
 
+function New-Password {
+    param(
+        [Parameter(Position = 0)]
+        [int] $Length = 64,
+
+        [Parameter(Position = 1)]
+        [int] $NumberOfNonAlphanumericCharacters = 16
+    )
+
+    Add-Type -AssemblyName System.Web
+    $Password = [System.Web.Security.Membership]::GeneratePassword($Length, $NumberOfAlphanumericCharacters)
+    Write-Output $Password
+}
+
 function Get-InstalledVoices {
     Add-Type -AssemblyName System.Speech
     $SpeechSynthesizer = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
