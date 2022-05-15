@@ -9,6 +9,7 @@ call plug#begin('~/AppData/Local/nvim/plugged')
     Plug 'scrooloose/NERDTree'
     Plug 'jiangmiao/auto-pairs'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'tmhedberg/SimpylFold'
 call plug#end()
 
 syntax on
@@ -31,6 +32,8 @@ set nobackup
 set nowb
 set noswapfile
 set lazyredraw
+set foldmethod=indent
+set foldlevel=99
 
 set statusline=
 set statusline+=%1*\ %n\ %*     " buffer number
@@ -56,10 +59,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " automatically delete all trailing white spaces
 autocmd BufWritePre * %s/\s\+$//e
 
-
 " check spelling
 map <leader>o :setlocal spell! spelllang=en_us<CR>
-
 
 " move focuc between panes
 set splitbelow splitright
@@ -71,7 +72,10 @@ map <C-l> <C-w>l
 " placeholder guide
 nnoremap ,, <Esc>/<++><Enter>"_c4l
 
-autocmd FileType tex map ;c :!latexmk -cd "src/document.tex" -synctex=1 -shell-escape
-            \ -interaction=nonstopmode -file-line-error -pdf<CR><CR>
+" python
+nnoremap <Space> za
+
+" latex
+autocmd FileType tex map ;c :!latexmk -cd "src/document.tex" -synctex=1 -shell-escape -interaction=nonstopmode -file-line-error -pdf<CR><CR>
 autocmd FileType tex map ;p :!mupdf ./build/document.pdf & disown<CR><CR>
 autocmd FileType tex map ;d :!latexmk -C -outdir="./src" "./src/document.tex"<CR>
