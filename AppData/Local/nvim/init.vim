@@ -10,6 +10,7 @@ call plug#begin('~/AppData/Local/nvim/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tmhedberg/SimpylFold'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 syntax on
@@ -35,6 +36,14 @@ set lazyredraw
 set foldmethod=indent
 set foldlevel=99
 set clipboard^=unnamed,unnamedplus
+
+" CoC specific settings
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=200
+set shortmess+=c
 
 set statusline=
 set statusline+=%1*\ %n\ %*     " buffer number
@@ -70,6 +79,43 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" always show signcolumn
+if has('nvim-0.5.0') || has('patch-8.1.1564')
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
+
+" tab completion
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : CheckBackspace() ? "\<TAB>" : coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+
+" trigger completion
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" select first on enter
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" show documentation
+nnoremap <silent> K : call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('K', 'in')
+    endif
+endfunction
+
 " placeholder guide
 nnoremap ,, <Esc>/<++><Enter>"_c4l
 
@@ -81,3 +127,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$']
 autocmd FileType tex map ;c :!latexmk -cd "src/document.tex" -synctex=1 -shell-escape -interaction=nonstopmode -file-line-error -pdf<CR><CR>
 autocmd FileType tex map ;p :!mupdf ./build/document.pdf & disown<CR><CR>
 autocmd FileType tex map ;d :!latexmk -C -outdir="./src" "./src/document.tex"<CR>
+
+" misc
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
