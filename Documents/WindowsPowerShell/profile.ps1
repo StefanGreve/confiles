@@ -9,6 +9,7 @@ $global:WTRC = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bb
 $global:WGRC = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 $global:Desktop = [Environment]::GetFolderPath("Desktop")
+$global:Natural = { [Regex]::Replace($_.Name, '\d+', { $Args[0].Value.PadLeft(20) }) }
 
 #endregion Global Profile Variables
 
@@ -283,7 +284,8 @@ function Convert-ImageToPdf {
 
         [switch] $Show
     )
-    $Images = Get-ChildItem -Path $Path\* -Include "*.jpg", "*.png"
+
+    $Images = Get-ChildItem -Path $Path\* -Include "*.jpg","*.jpeg","*.png" | Sort-Object $Natural
 
     $Destination = Join-Path -Path $Path -ChildPath $OutFile
     New-PDF -PageSize A4 {
