@@ -17,3 +17,5 @@
 	provider = bitbucket
 [safe]
 	directory = *
+[help]
+	autocorrect = 30
