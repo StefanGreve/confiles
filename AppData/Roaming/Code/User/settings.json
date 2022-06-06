@@ -105,5 +105,7 @@
     "liveServer.settings.donotVerifyTags": true,
     "liveServer.settings.donotShowInfoMsg": true,
     "workbench.startupEditor": "none",
-    "window.zoomLevel": 2,
+    "cSpell.userWords": [
+        "Greve"
+    ],
 }
