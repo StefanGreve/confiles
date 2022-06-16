@@ -11,6 +11,44 @@ $global:WGRC = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3
 $global:Desktop = [Environment]::GetFolderPath("Desktop")
 $global:Natural = { [Regex]::Replace($_.Name, '\d+', { $Args[0].Value.PadLeft(20) }) }
 
+$global:ForegroundColors = [PSCustomObject]@{
+    Black         = "$([char]0x1b)[30m"
+    Red           = "$([char]0x1b)[31m"
+    Green         = "$([char]0x1b)[32m"
+    Yellow        = "$([char]0x1b)[33m"
+    Blue          = "$([char]0x1b)[34m"
+    Magenta       = "$([char]0x1b)[35m"
+    Cyan          = "$([char]0x1b)[36m"
+    White         = "$([char]0x1b)[37m"
+    BrightBlack   = "$([char]0x1b)[90m"
+    BrightRed     = "$([char]0x1b)[91m"
+    BrightGreen   = "$([char]0x1b)[92m"
+    BrightYellow  = "$([char]0x1b)[93m"
+    BrightBlue    = "$([char]0x1b)[94m"
+    BrightMagenta = "$([char]0x1b)[95m"
+    BrightCyan    = "$([char]0x1b)[96m"
+    BrightWhite   = "$([char]0x1b)[97m"
+}
+
+$global:BackgroundColors = [PSCustomObject]@{
+    Black         = "$([char]0x1b)[40m"
+    Red           = "$([char]0x1b)[41m"
+    Green         = "$([char]0x1b)[42m"
+    Yellow        = "$([char]0x1b)[43m"
+    Blue          = "$([char]0x1b)[44m"
+    Magenta       = "$([char]0x1b)[45m"
+    Cyan          = "$([char]0x1b)[46m"
+    White         = "$([char]0x1b)[47m"
+    BrightBlack   = "$([char]0x1b)[100m"
+    BrightRed     = "$([char]0x1b)[101m"
+    BrightGreen   = "$([char]0x1b)[102m"
+    BrightYellow  = "$([char]0x1b)[103m"
+    BrightBlue    = "$([char]0x1b)[104m"
+    BrightMagenta = "$([char]0x1b)[105m"
+    BrightCyan    = "$([char]0x1b)[106m"
+    BrightWhite   = "$([char]0x1b)[107m"
+}
+
 #endregion Global Profile Variables
 
 #region Environment Variables
@@ -755,23 +793,29 @@ Set-Alias -Name ^ -Value Select-Object
 #region Command Prompt
 
 function prompt {
-    Write-Host '[' -NoNewline
-    Write-Host $env:UserName -NoNewline -ForegroundColor Cyan
-    Write-Host "@$env:ComputerName " -NoNewline
     $Path = (Get-Item "$($executionContext.SessionState.Path.CurrentLocation)").BaseName
 
-    Write-Host $Path -NoNewline -ForegroundColor Green
-    Write-Host ']' -NoNewline
-
-    if (Test-Path .git) {
-        Write-Host " ($(git rev-parse --abbrev-ref HEAD))" -ForegroundColor Blue -NoNewline
+    $Branch = if (Test-Path ".git") {
+        $ForegroundColors.Blue + " ($(git rev-parse --abbrev-ref HEAD))" + $ForegroundColors.White
     }
 
-    if ($env:VIRTUAL_ENV) {
-        Write-Host " ($([System.IO.Path]::GetFileName($env:VIRTUAL_ENV)))" -NoNewline -ForegroundColor Yellow
+    $Venv = if ($env:VIRTUAL_ENV) {
+        $ForegroundColors.Yellow + " ($([System.IO.Path]::GetFileName($env:VIRTUAL_ENV))" + $ForegroundColors.White
     }
 
-    return "`n$('>' * ($NestedPromptLevel + 1)) "
+    return @(
+        '[',
+        $ForegroundColors.BrightCyan + $env:USERNAME + $ForegroundColors.White,
+        '@',
+        $env:COMPUTERNAME,
+        ' ',
+        $ForegroundColors.Green + $Path + $ForegroundColors.White,
+        ']'
+        $Branch,
+        $Venv,
+        "`n",
+        "$('>' * ($NestedPromptLevel + 1)) "
+    ) -join ''
 }
 
 #endregion Command Prompt
