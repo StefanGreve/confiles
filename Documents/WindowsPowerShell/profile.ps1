@@ -73,6 +73,7 @@ function Update-Configuration {
 
 function Get-AllBranches {
     if (Test-Path .git) {
+        git fetch --all
         foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master|origin/HEAD" -NotMatch)) {
             $Branch = ($Branch -Split '/', 2).Trim()[1]
             if (-not $(git show-ref refs/heads/$Branch)) {
