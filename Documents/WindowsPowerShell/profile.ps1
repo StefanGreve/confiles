@@ -59,10 +59,6 @@ $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 #region PowerShell Macros
 
-function Invoke-Anonfile {
-    python -m anonfile.__init__ $Args
-}
-
 function Get-RepositoryDirectory {
     Write-Output $(Join-Path -Path $([Environment]::GetFolderPath("Desktop")) -ChildPath "repos")
 }
@@ -798,7 +794,6 @@ function Start-ElevatedConsole {
 
 #region Aliases
 
-Set-Alias -Name anonfile -Value Invoke-Anonfile
 Set-Alias -Name config -Value Update-Configuration
 Set-Alias -Name grepo -Value Get-Repository
 Set-Alias -Name grepo-all -Value Get-AllRepositories
