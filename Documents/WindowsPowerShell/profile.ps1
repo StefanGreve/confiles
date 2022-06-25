@@ -714,6 +714,26 @@ function Publish-DotnetProject {
     dotnet publish $Path $Parameters
 }
 
+function Restart-Job {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0, ParameterSetName = "Name", Mandatory)]
+        [string] $Name,
+
+        [Parameter(Position = 0, ParameterSetName = "Id", Mandatory)]
+        [int] $Id
+    )
+    begin {
+        $Job = if ($Name) { Get-Job -Name $Name } else { Get-Job -Id $Id }
+    }
+    process {
+        Start-Job -Name $Name -ScriptBlock ([scriptblock]::Create($Job.Command))
+    }
+    end {
+        Remove-Job -Id $Job.Id
+    }
+}
+
 function Set-EnvironmentVariable {
     [CmdletBinding()]
     param(
