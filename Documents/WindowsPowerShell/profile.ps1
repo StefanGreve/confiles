@@ -710,6 +710,71 @@ function Publish-DotnetProject {
     dotnet publish $Path $Parameters
 }
 
+function Publish-CustomModule {
+    <#
+        .SYNOPSIS
+        Test and publish PowerShell modules.
+
+        .DESCRIPTION
+        Test and optionally publish custom PowerShell modules. Run this Cmdlet at least once without the ApiKey parameter
+        to ensure that the preliminary tests run through. This Cmdlet requires the PSScriptAnalyzer module.
+    #>
+    [Alias("publish")]
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
+    param(
+        [Parameter()]
+        [string] $ApiKey
+    )
+
+    begin {
+        $Step = 0
+        $Steps = 5
+        $ModulePath = $env:PSMODULEPATH -Split ";" | Select-Object -First 1
+        $ProjectRootDirectory = Join-Path -Path $PWD -ChildPath "src"
+        $Name = $(Get-ChildItem -Path $ProjectRootDirectory -Filter "*.psd1").BaseName
+        $ManifestPath = Join-Path -Path $ProjectRootDirectory -ChildPath "${Name}.psd1"
+        $Manifest = Import-PowerShellDataFile -Path $ManifestPath
+        $Version = $Manifest.ModuleVersion
+    }
+    process {
+        $Step++
+        Write-Host "(${Step}/${Steps}) Test module manifest" -ForegroundColor Green
+        Test-ModuleManifest $ManifestPath
+
+        $Step++
+        Write-Host "(${Step}/${Steps}) Import module dependencies" -ForegroundColor Green
+        Import-Module PSScriptAnalyzer
+        if ($Manifest.RequiredModules) { Import-Module $Manifest.RequiredModules }
+
+        $Step++
+        Write-Host "(${Step}/${Steps}) Run PSScriptAnalyzer" -ForegroundColor Green
+        Invoke-ScriptAnalyzer -Path $ManifestPath -Recurse -Severity Warning
+
+        $Step++
+        Write-Host "(${Step}/${Steps}) Import main module" -ForegroundColor Green
+        Import-Module $ManifestPath -Force
+
+        $Step++
+        Write-Host "(${Step}/${Steps}) Copy items to module directory" -ForegroundColor Green
+        $Destination = New-Item -ItemType Directory -Path $ModulePath -Name $Name -Force
+        Remove-Item -Path $Destination -Recurse -Force
+        Copy-Item $ProjectRootDirectory -Destination $Destination.FullName -Recurse -Force
+
+        if ($ApiKey -and $PSCmdlet.ShouldProcess($ManifestPath, "Publish ${Name} (version ${Version}) to PSGallery")) {
+            Publish-Module -Name $Name -NuGetApiKey $ApiKey -RequiredVersion $Version -Verbose
+        }
+    }
+    end {
+        if ($ApiKey) {
+            $UriBuilder = New-Object System.UriBuilder
+            $UriBuilder.Scheme =  "https"
+            $UriBuilder.Host = "www.powershellgallery.com"
+            $UriBuilder.Path = @("packages", $Name, $Version -join '/')
+            Start-Process $UriBuilder.ToString()
+        }
+    }
+}
+
 function Restart-Job {
     [CmdletBinding()]
     param(
@@ -803,6 +868,7 @@ Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
 Set-Alias -Name elevate -Value Start-ElevatedConsole
 Set-Alias -Name ^ -Value Select-Object
+Set-Alias -Name np -Value notepad.exe
 
 #endregion Aliases
 
