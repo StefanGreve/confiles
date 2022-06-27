@@ -67,30 +67,6 @@ function Update-Configuration {
     git --git-dir="$HOME\Desktop\repos\confiles" --work-tree=$HOME $Args
 }
 
-function Get-AllBranches {
-    if (Test-Path .git) {
-        git fetch --all
-        foreach ($Branch in $(git branch -r | Select-String -Pattern "origin/master|origin/HEAD" -NotMatch)) {
-            $Branch = ($Branch -Split '/', 2).Trim()[1]
-            if (-not $(git show-ref refs/heads/$Branch)) {
-                git branch --track $Branch "origin/${Branch}"
-            }
-        }
-    }
-    else {
-        Write-Error "Not a Git Repository" -Category ObjectNotFound -ErrorAction Stop
-    }
-}
-
-function Get-Repository {
-    param(
-        [Parameter(Mandatory)]
-        [string]$RepositoryName
-    )
-
-    git clone "git@github.com:$(git config --global user.name)/$RepositoryName.git"
-}
-
 function Get-AllRepositories {
     param(
         [Parameter()]
@@ -860,9 +836,7 @@ function Start-ElevatedConsole {
 #region Aliases
 
 Set-Alias -Name config -Value Update-Configuration
-Set-Alias -Name grepo -Value Get-Repository
 Set-Alias -Name grepo-all -Value Get-AllRepositories
-Set-Alias -Name export -Value Export-Icon
 Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
