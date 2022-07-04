@@ -5,16 +5,19 @@
 	editor = nvim
 	autocrlf = true
 	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
-    pager = delta
+    pager = "delta --syntax-theme='Solarized (dark)' --dark"
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = delta --color-only --features=interactive
 [delta]
     navigate = true
     light = false
+    features = decorations
 [diff]
     colorMoved = default
 [merge]
     conflictstyle = diff3
+[blame]
+    hyperlinks = true
 [init]
 	defaultBranch = master
 [alias]
@@ -30,3 +33,4 @@
 	directory = *
 [help]
 	autocorrect = 30
+	format = html
