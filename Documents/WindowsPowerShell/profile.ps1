@@ -842,6 +842,8 @@ Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
 Set-Alias -Name elevate -Value Start-ElevatedConsole
 Set-Alias -Name ^ -Value Select-Object
+Set-Alias -Name man -Value Get-Help
+Set-Alias -Name help -Value Get-Help
 Set-Alias -Name np -Value notepad.exe
 
 #endregion Aliases
