@@ -322,6 +322,11 @@ function Convert-ImageToPdf {
     Close-PDF -Document $Document
 }
 
+function Stop-Work {
+    $Work = @("TEAMS", "LYNC", "OUTLOOK")
+    Get-Process | Where-Object { $Work.Contains($_.Name.ToUpper()) } | Stop-Process -Force
+}
+
 function Start-Lesson {
     [CmdletBinding()]
     param(
@@ -842,9 +847,10 @@ Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
 Set-Alias -Name elevate -Value Start-ElevatedConsole
 Set-Alias -Name ^ -Value Select-Object
-Set-Alias -Name man -Value Get-Help
-Set-Alias -Name help -Value Get-Help
+Set-Alias -Name man -Value Get-Help -Option AllScope
+Set-Alias -Name help -Value Get-Help -Option AllScope
 Set-Alias -Name np -Value notepad.exe
+Set-Alias -Name bye -Value Stop-Work
 
 #endregion Aliases
 
