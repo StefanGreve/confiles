@@ -856,7 +856,14 @@ Set-Alias -Name bye -Value Stop-Work
 
 #region Command Prompt
 
+function Get-ExecutionTime {
+    $History = Get-History
+    Write-Output $($History[-1].EndExecutionTime - $History[-1].StartExecutionTime)
+}
+
 function prompt {
+    $ExecTime = Get-ExecutionTime
+
     $Path = (Get-Item "$($executionContext.SessionState.Path.CurrentLocation)").BaseName
 
     $Branch = if (Test-Path ".git") {
@@ -866,6 +873,8 @@ function prompt {
     $Venv = if ($env:VIRTUAL_ENV) {
         $ForegroundColors.Yellow + " ($([System.IO.Path]::GetFileName($env:VIRTUAL_ENV))" + $ForegroundColors.White
     }
+
+    $Time = " ($($ExecTime.Hours.ToString('D2')):$($ExecTime.Minutes.ToString('D2')):$($ExecTime.Seconds.ToString('D2')):$($ExecTime.Milliseconds.ToString('D3')))"
 
     return @(
         '[',
@@ -877,6 +886,7 @@ function prompt {
         ']'
         $Branch,
         $Venv,
+        $ForegroundColors.BrightYellow + $Time + $ForegroundColors.White,
         "`n",
         "$('>' * ($NestedPromptLevel + 1)) "
     ) -join ''
