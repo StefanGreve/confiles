@@ -863,10 +863,11 @@ function Get-ExecutionTime {
 
 function prompt {
     $ExecTime = Get-ExecutionTime
+    $Path = (Get-Item "$($ExecutionContext.SessionState.Path.CurrentLocation)").BaseName
 
-    $Path = (Get-Item "$($executionContext.SessionState.Path.CurrentLocation)").BaseName
+    git rev-parse --is-inside-work-tree 2>&1 | Out-Null
 
-    $Branch = if (Test-Path ".git") {
+    $Branch = if ($?) {
         $ForegroundColors.Blue + " ($(git rev-parse --abbrev-ref HEAD))" + $ForegroundColors.White
     }
 
