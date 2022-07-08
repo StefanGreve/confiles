@@ -105,7 +105,8 @@
         }
     ],
     "theme": "dark",
-    "language": "ja-JP",
+    "language": "en-US",
+    "adjustIndistinguishableColors": true,
     "copyFormatting": "none",
     "copyOnSelect": true,
     "launchMode": "maximized",
@@ -127,9 +128,10 @@
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
             "backgroundImageOpacity": 0.5,
-            "useAcrylic": false,
+            "useAcrylic": true,
+            "experimental.useAtlasEngine": true,
             "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
-            "colorScheme": "OneDark"
+            "colorScheme": "AdvancedColors"
         },
         "list": [
             {
@@ -172,26 +174,25 @@
     },
     "schemes": [
         {
-            "name": "OneDark",
-            "black": "#1e2127",
-            "red": "#e06c75",
-            "green": "#98c379",
-            "yellow": "#d19a66",
-            "blue": "#61afef",
-            "purple": "#c678dd",
-            "cyan": "#56b6c2",
-            "white": "#abb2bf",
-            "brightBlack": "#5c6370",
-            "brightRed": "#e06c75",
-            "brightGreen": "#98c379",
-            "brightYellow": "#d19a66",
-            "brightBlue": "#61afef",
-            "brightPurple": "#c678dd",
-            "brightCyan": "#56b6c2",
+            "name": "AdvancedColors",
+            "black": "#55544E",
+            "red": "#B9272C",
+            "green": "#06d6a0",
+            "yellow": "#ffe45e",
+            "blue": "#327dc3",
+            "purple": "#916ccf",
+            "cyan": "#15cdcb",
+            "white": "#FDFFFC",
+            "brightBlack": "#7F7E76",
+            "brightRed": "#DB575B",
+            "brightGreen": "#38fac6",
+            "brightYellow": "#FFF1AD",
+            "brightBlue": "#6da5d9",
+            "brightPurple": "#c5b2e6",
+            "brightCyan": "#46ECE9",
             "brightWhite": "#ffffff",
             "background": "#1e2127",
-            "foreground": "#abb2bf",
-            "cursorColor": "#aaaaaa"
+            "foreground": "#d2d8d9"
         },
         {
             "name": "CrayonPonyFish",
