@@ -858,7 +858,8 @@ Set-Alias -Name bye -Value Stop-Work
 
 function Get-ExecutionTime {
     $History = Get-History
-    Write-Output $($History[-1].EndExecutionTime - $History[-1].StartExecutionTime)
+    $ExecTime = if ($History) { $History[-1].EndExecutionTime - $History[-1].StartExecutionTime } else { New-TimeSpan }
+    Write-Output $ExecTime
 }
 
 function prompt {
