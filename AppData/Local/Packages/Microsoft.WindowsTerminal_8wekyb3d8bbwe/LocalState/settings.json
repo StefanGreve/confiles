@@ -130,8 +130,10 @@
             "backgroundImageOpacity": 0.5,
             "useAcrylic": true,
             "experimental.useAtlasEngine": true,
+            "experimental.pixelShaderPath": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\crt.hlsl",
             "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
-            "colorScheme": "AdvancedColors"
+            "colorScheme": "AdvancedColors",
+            "tabColor": "#1e2127"
         },
         "list": [
             {
@@ -141,7 +143,8 @@
                 "guid": "{f486cf1d-1994-4db1-a49d-2ca5b6318c76}",
                 "hidden": false,
                 "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
-                "colorScheme": "CrayonPonyFish"
+                "colorScheme": "CrayonPonyFish",
+                "tabColor": "#150707"
             },
             {
                 "name": "Command Prompt",
@@ -150,7 +153,8 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\cmd_prompt.png",
-                "colorScheme": "Atom"
+                "colorScheme": "Atom",
+                "tabColor": "#161719"
             },
             {
                 "name": "Git Bash",
@@ -159,7 +163,8 @@
                 "guid": "{a2fc3baf-962b-46e1-b4d6-0ff09ec629d3}",
                 "hidden": false,
                 "icon": "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-                "colorScheme": "Ubuntu"
+                "colorScheme": "Ubuntu",
+                "tabColor": "#300a24"
             },
             {
                 "name": "Python",
@@ -168,7 +173,8 @@
                 "guid": "{6ee2d370-4f6a-4a55-a0ad-8afdbc68d6ca}",
                 "hidden": false,
                 "icon": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\DLLs\\py.ico",
-                "colorScheme": "cyberpunk"
+                "colorScheme": "cyberpunk",
+                "tabColor": "#332a57"
             },
         ]
     },
