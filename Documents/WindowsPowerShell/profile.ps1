@@ -55,6 +55,12 @@ $global:BackgroundColors = [PSCustomObject]@{
 
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
+if ($PSVersionTable.PSVersion.Major -eq 7 -and $PSVersionTable.PSVersion.Minor -ge 2) {
+    $PSStyle.Progress.View = "Classic"
+    $Host.PrivateData.ProgressBackgroundColor = "Cyan"
+    $Host.PrivateData.ProgressForegroundColor = "Yellow"
+}
+
 #endregion Environment Variables
 
 #region PowerShell Macros
