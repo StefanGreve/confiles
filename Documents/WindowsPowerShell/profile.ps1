@@ -65,10 +65,6 @@ if ($PSVersionTable.PSVersion.Major -eq 7 -and $PSVersionTable.PSVersion.Minor -
 
 #region PowerShell Macros
 
-function Get-RepositoryDirectory {
-    Write-Output $(Join-Path -Path $([Environment]::GetFolderPath("Desktop")) -ChildPath "repos")
-}
-
 function Update-Configuration {
     git --git-dir="$HOME\Desktop\repos\confiles" --work-tree=$HOME $Args
 }
@@ -820,7 +816,6 @@ function Start-ElevatedConsole {
 #region Aliases
 
 Set-Alias -Name config -Value Update-Configuration
-Set-Alias -Name grepo-all -Value Get-AllRepositories
 Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
@@ -829,6 +824,7 @@ Set-Alias -Name ^ -Value Select-Object
 Set-Alias -Name man -Value Get-Help -Option AllScope
 Set-Alias -Name help -Value Get-Help -Option AllScope
 Set-Alias -Name np -Value notepad.exe
+Set-Alias -Name exp -Value explorer.exe
 Set-Alias -Name bye -Value Stop-Work
 
 #endregion Aliases
