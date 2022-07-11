@@ -69,6 +69,10 @@ function Update-Configuration {
     git --git-dir="$HOME\Desktop\repos\confiles" --work-tree=$HOME $Args
 }
 
+function Update-System {
+    Update-Help -UICulture "en-US" -ErrorAction SilentlyContinue -ErrorVariable UpdateErrors -Force
+}
+
 function Export-Icon {
     param(
         [Parameter(Mandatory)]
@@ -816,6 +820,7 @@ function Start-ElevatedConsole {
 #region Aliases
 
 Set-Alias -Name config -Value Update-Configuration
+Set-Alias -Name update -Value Update-System
 Set-Alias -Name activate -Value .\venv\Scripts\Activate.ps1
 Set-Alias -Name count -Value Get-FileCount
 Set-Alias -Name touch -Value New-Item
