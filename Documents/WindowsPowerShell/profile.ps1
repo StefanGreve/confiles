@@ -844,7 +844,7 @@ function prompt {
     git rev-parse --is-inside-work-tree 2>&1 | Out-Null
 
     $Branch = if ($?) {
-        $ForegroundColors.Blue + " ($(git rev-parse --abbrev-ref HEAD))" + $ForegroundColors.White
+        $ForegroundColors.Blue + " ($(git branch --show-current))" + $ForegroundColors.White
     }
 
     $Venv = if ($env:VIRTUAL_ENV) {
