@@ -1,18 +1,22 @@
 {
+    "$schema": "https://aka.ms/winget-settings.schema.json",
     "visual": {
         "progressBar": "retro"
     },
     "installBehavior": {
         "preferences": {
+            "scope": "user",
             "locale": [
-                "en-US"
+                "en-US",
+                "ja-JP"
             ]
         }
     },
     "telemetry": {
-        "disable": false
+        "disable": true
     },
     "experimentalFeatures": {
+        "directMSI": true,
         "dependencies": true
     }
 }
