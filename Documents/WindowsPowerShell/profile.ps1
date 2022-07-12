@@ -503,6 +503,7 @@ function Get-Covid {
 }
 
 function Get-XKCD {
+    [Alias("xkcd")]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, ParameterSetName = "Num", Position = 0, ValueFromPipeline)]
@@ -523,14 +524,16 @@ function Get-XKCD {
             for ($i = 1; $i -le $LastNum; $i++) {
                 Write-Progress -Activity "Download XKCD $i" -PercentComplete ($i * 100 / $LastNum) -Status "$(([System.Math]::Round((($i) / $LastNum * 100), 0)))%"
                 $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
-                $WebClient.DownloadFile($Response.Img, $(Join-Path -Path $PWD -ChildPath "$($Response.Num).$(Get-Extension($Response.Img))"))
+		$Image = "$($Response.Num).$(Get-Extension($Response.Img))"
+                $WebClient.DownloadFile($Response.Img, $(Join-Path -Path $PWD -ChildPath $Image))
             }
         }
         else
         {
-            foreach ($i in $Num) {
-                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
-                Invoke-WebRequest -Uri $Response.Img -OutFile "$i.$(Get-Extension($Response.Img))"
+            foreach ($n in $Num) {
+                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$n/info.0.json"
+                $Image = "$n.$(Get-Extension($Response.Img))"
+                Invoke-WebRequest -Uri $Response.Img -OutFile $Image
             }
         }
     }
