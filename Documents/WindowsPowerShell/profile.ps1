@@ -275,30 +275,36 @@ function Convert-ImageToPdf {
         [switch] $Show
     )
 
-    $Images = Get-ChildItem -Path $Path\* -Include "*.jpg","*.jpeg","*.png" | Sort-Object $Natural
-
-    $Destination = Join-Path -Path $Path -ChildPath $OutFile
-    New-PDF -PageSize A4 {
-        if ($Images.Count -ge 1) {
-            $Images | Foreach-Object {
-                New-PDFPage {
-                    New-PDFImage -ImagePath $_.FullName
-                    Write-Verbose "Converting $($_.FullName)"
-                }
-            }
-        }
-        else {
-            Write-Error "There are no images in '$Path'. Aborting operation." -ErrorAction Stop
-        }
-    } -FilePath $Destination
-
-    if ($Show) {
-        Invoke-Item $Destination
+    begin {
+        $Images = Get-ChildItem -Path $Path\* -Include "*.jpg","*.jpeg","*.png" | Sort-Object $Natural
+        $Destination = Join-Path -Path $Path -ChildPath $OutFile
     }
 
-    $Document = Get-PDF -FilePath $Destination
-    Get-PDFDetails -Document $Document
-    Close-PDF -Document $Document
+    process {
+        New-PDF -PageSize A4 {
+            if ($Images.Count -ge 1) {
+                $Images | Foreach-Object {
+                    New-PDFPage {
+                        New-PDFImage -ImagePath $_.FullName
+                        Write-Verbose "Converting $($_.FullName)"
+                    }
+                }
+            }
+            else {
+                Write-Error "There are no images in '$Path'. Aborting operation." -ErrorAction Stop
+            }
+        } -FilePath $Destination
+
+        if ($Show) {
+            Invoke-Item $Destination
+        }
+    }
+
+    end {
+        $Document = Get-PDF -FilePath $Destination
+        Get-PDFDetails -Document $Document
+        Close-PDF -Document $Document
+    }
 }
 
 function Stop-Work {
@@ -347,6 +353,7 @@ function Get-Calendar {
         [ValidateSet("Day", "Week", "Month", "Year")]
         [string] $Span = "Day"
     )
+
     begin {
         Add-Type -AssemblyName Microsoft.Office.Interop.Outlook
         $Outlook = New-Object -ComObject Outlook.Application
@@ -415,6 +422,7 @@ function Set-PowerState {
 
         [switch] $DisableWake
     )
+
     begin{
         Add-Type -AssemblyName System.Windows.Forms
         $PowerState = if ($State -eq "Hibernate") { [System.Windows.Forms.PowerState]::Hibernate } else { [System.Windows.Forms.PowerState]::Suspend }
@@ -451,6 +459,7 @@ function Start-Timer {
         [Parameter()]
         [switch] $SendKeySequence
     )
+
     begin {
         $WindowsShell = New-Object -ComObject WScript.Shell
         $CountDown = if ($Hours) { $Hours * 3600 } elseif ($Minutes) { $Minutes * 60 } else { $Seconds }
@@ -502,17 +511,12 @@ function Get-XKCD {
         [Parameter(Mandatory, ParameterSetName = "All")]
         [switch] $All
     )
+
     begin {
         function Get-Extension ([string]$Uri) { ($Uri | Split-Path -Leaf).Split(".")[1] | Write-Output }
     }
     process {
-        if ($Num) {
-            foreach ($i in $Num) {
-                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
-                Invoke-WebRequest -Uri $Response.Img -OutFile "$i.$(Get-Extension($Response.Img))"
-            }
-        }
-        if ($All) {
+        if ($All.IsPresent) {
             $WebClient = New-Object -TypeName Net.WebClient
             $LastNum = (Invoke-RestMethod -Uri "https://xkcd.com/info.0.json").Num
 
@@ -520,6 +524,13 @@ function Get-XKCD {
                 Write-Progress -Activity "Download XKCD $i" -PercentComplete ($i * 100 / $LastNum) -Status "$(([System.Math]::Round((($i) / $LastNum * 100), 0)))%"
                 $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
                 $WebClient.DownloadFile($Response.Img, $(Join-Path -Path $PWD -ChildPath "$($Response.Num).$(Get-Extension($Response.Img))"))
+            }
+        }
+        else
+        {
+            foreach ($i in $Num) {
+                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
+                Invoke-WebRequest -Uri $Response.Img -OutFile "$i.$(Get-Extension($Response.Img))"
             }
         }
     }
@@ -538,6 +549,7 @@ function Measure-Performance {
         [Parameter(Mandatory = $true, Position = 1)]
         [string] $Command
     )
+
     begin {
         $Watch = [System.Diagnostics.Stopwatch]::new()
     }
@@ -568,6 +580,7 @@ function Get-Message {
         [Parameter(Position = 2)]
         [switch] $Unread
     )
+
     begin {
         Add-Type -AssemblyName Microsoft.Office.Interop.Outlook
         $Outlook = New-Object -ComObject Outlook.Application
@@ -744,6 +757,7 @@ function Restart-Job {
         [Parameter(Position = 0, ParameterSetName = "Id", Mandatory)]
         [int] $Id
     )
+
     begin {
         $Job = if ($Name) { Get-Job -Name $Name } else { Get-Job -Id $Id }
     }
@@ -802,6 +816,7 @@ function Remove-EnvironmentVariable {
         [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
+
     $EnvironmentVariableTarget = if ($Scope -eq "User") { [System.EnvironmentVariableTarget]::User } else { [System.EnvironmentVariableTarget]::Machine }
     $RemoveValue = if ($Key -eq "PATH") { ([Environment]::GetEnvironmentVariable("PATH", $EnvironmentVariableTarget) -Split ";" | Where-Object { $_ -ne $Value }) -join ";" } else { $null }
     $ExampleOutput = if ($Key -eq "PATH") { "`n`nNEW PATH VALUE`n==============`n`n$($RemoveValue -split ";" -join "`n")`n`n" } else { $null }
