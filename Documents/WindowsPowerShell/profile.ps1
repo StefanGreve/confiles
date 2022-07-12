@@ -529,7 +529,7 @@ function Get-XKCD {
     begin {
         function Get-Extension ([string]$Uri) { ($Uri | Split-Path -Leaf).Split(".")[1] | Write-Output }
 
-        function New-XckdImage ([int] $Id) {
+        function New-XKCDImage ([int] $Id) {
             $Response = Invoke-RestMethod -Uri "https://xkcd.com/$Id/info.0.json"
             $Image = $(Join-Path -Path $Path -ChildPath "$Id.$(Get-Extension($Response.Img))")
             Invoke-WebRequest -Uri $Response.Img -OutFile $Image
@@ -554,14 +554,14 @@ function Get-XKCD {
             Write-Output $Images
         }
         elseif ($Last.IsPresent) {
-            New-XckdImage($LastNum)
+            New-XKCDImage($LastNum)
         }
         elseif ($Random.IsPresent) {
-            New-XckdImage($(Get-Random -Minimum 1 -Maximum $LastNum))
+            New-XKCDImage($(Get-Random -Minimum 1 -Maximum $LastNum))
         }
         else
         {
-            $Images = foreach ($n in $Num) { New-XckdImage($n) }
+            $Images = foreach ($n in $Num) { New-XKCDImage($n) }
             Write-Output $Images
         }
     }
