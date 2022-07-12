@@ -504,37 +504,65 @@ function Get-Covid {
 
 function Get-XKCD {
     [Alias("xkcd")]
+    [OutputType([string[]], ParameterSetName = "Num")]
+    [OutputType([string[]], ParameterSetName = "All")]
+    [OutputType([string], ParameterSetName = "Last")]
+    [OutputType([string], ParameterSetName = "Random")]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, ParameterSetName = "Num", Position = 0, ValueFromPipeline)]
         [int[]] $Num,
 
         [Parameter(Mandatory, ParameterSetName = "All")]
-        [switch] $All
+        [switch] $All,
+
+        [Parameter(Mandatory, ParameterSetName = "Last")]
+        [switch] $Last,
+
+        [Parameter(Mandatory, ParameterSetName = "Random")]
+        [switch] $Random,
+
+        [Parameter()]
+        [string] $Path = $PWD
     )
 
     begin {
         function Get-Extension ([string]$Uri) { ($Uri | Split-Path -Leaf).Split(".")[1] | Write-Output }
+
+        function New-XckdImage ([int] $Id) {
+            $Response = Invoke-RestMethod -Uri "https://xkcd.com/$Id/info.0.json"
+            $Image = $(Join-Path -Path $Path -ChildPath "$Id.$(Get-Extension($Response.Img))")
+            Invoke-WebRequest -Uri $Response.Img -OutFile $Image
+            Write-Output $Image
+        }
+
+        $Images = New-Object -TypeName System.Collections.Generic.List[string]
+        $LastNum = if ($All.IsPresent -or $Last.IsPresent -or $Random.IsPresent) { (Invoke-RestMethod -Uri "https://xkcd.com/info.0.json").Num } else { $null }
     }
     process {
         if ($All.IsPresent) {
             $WebClient = New-Object -TypeName Net.WebClient
-            $LastNum = (Invoke-RestMethod -Uri "https://xkcd.com/info.0.json").Num
 
             for ($i = 1; $i -le $LastNum; $i++) {
                 Write-Progress -Activity "Download XKCD $i" -PercentComplete ($i * 100 / $LastNum) -Status "$(([System.Math]::Round((($i) / $LastNum * 100), 0)))%"
                 $Response = Invoke-RestMethod -Uri "https://xkcd.com/$i/info.0.json"
-		$Image = "$($Response.Num).$(Get-Extension($Response.Img))"
-                $WebClient.DownloadFile($Response.Img, $(Join-Path -Path $PWD -ChildPath $Image))
+		        $Image = $(Join-Path -Path $Path -ChildPath "$($Response.Num).$(Get-Extension($Response.Img))")
+                $WebClient.DownloadFile($Response.Img, $Image)
+                $Images.Add($Image)
             }
+
+            Write-Output $Images
+        }
+        elseif ($Last.IsPresent) {
+            New-XckdImage($LastNum)
+        }
+        elseif ($Random.IsPresent) {
+            New-XckdImage($(Get-Random -Minimum 1 -Maximum $LastNum))
         }
         else
         {
-            foreach ($n in $Num) {
-                $Response = Invoke-RestMethod -Uri "https://xkcd.com/$n/info.0.json"
-                $Image = "$n.$(Get-Extension($Response.Img))"
-                Invoke-WebRequest -Uri $Response.Img -OutFile $Image
-            }
+            $Images = foreach ($n in $Num) { New-XckdImage($n) }
+            Write-Output $Images
         }
     }
 }
