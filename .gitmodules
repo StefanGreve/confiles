@@ -1,0 +1,3 @@
+[submodule "Documents/PowerShell/profile"]
+	path = Documents/PowerShell/profile
+	url = git@github.com:StefanGreve/profile.git
