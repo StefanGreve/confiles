@@ -114,9 +114,10 @@
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "profiles": {
         "defaults": {
-            "name": "PowerShell",
-            "tabTitle": "PowerShell",
-            "commandline": "powershell.exe -NoLogo",
+            "name": "PowerShell Core",
+            "tabTitle": "PowerShell Core",
+            "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
+            "elevate": true,
             "font": {
                 "face": "Cascadia Mono",
                 "size": 12
@@ -131,20 +132,20 @@
             "useAcrylic": true,
             "experimental.useAtlasEngine": true,
             "experimental.pixelShaderPath": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\crt.hlsl",
-            "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
+            "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
             "colorScheme": "AdvancedColors",
             "tabColor": "#1e2127"
         },
         "list": [
             {
-                "name": "PowerShell Core",
-                "tabTitle": "PowerShell Core",
-                "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
+                "name": "PowerShell",
+                "tabTitle": "PowerShell",
+                "commandline": "powershell.exe -NoLogo",
                 "guid": "{f486cf1d-1994-4db1-a49d-2ca5b6318c76}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
-                "colorScheme": "AdvancedColorsCore",
-                "tabColor": "#52205f"
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
+                "colorScheme": "AdvancedColors",
+                "tabColor": "#1e2127"
             },
             {
                 "name": "Command Prompt",
