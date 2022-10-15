@@ -1,5 +1,6 @@
 {
     "editor.acceptSuggestionOnEnter": "smart",
+    "editor.bracketPairColorization.enabled": true,
     "editor.cursorBlinking": "smooth",
     "editor.linkedEditing": true,
     "editor.renderWhitespace": "all",
@@ -20,7 +21,8 @@
     ],
     "editor.tabSize": 4,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true,
     },
     "files.autoGuessEncoding": true,
     "files.associations": {
@@ -28,6 +30,13 @@
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
+    "html.autoClosingTags": true,
+    "javascript.autoClosingTags": true,
+    "typescript.autoClosingTags": true,
+    "javascript.suggest.autoImports": true,
+    "typescript.suggest.autoImports": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
     "git.inputValidationSubjectLength": 72,
     "telemetry.enableTelemetry": false,
     "extensions.ignoreRecommendations": true,
@@ -80,9 +89,8 @@
         "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
         "editor.semanticHighlighting.enabled": true,
         "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
-        "editor.defaultFormatter": "ms-vscode.powershell"
+        "editor.defaultFormatter": "ms-vscode.powershell-preview"
     },
-    "jupyter.jupyterServerType": "local",
     "notebook.lineNumbers": "on",
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -93,11 +101,10 @@
     "eslint.validate": [
         "javascript"
     ],
-    "prettier.jsxBracketSameLine": true,
+    "prettier.bracketSameLine": true,
     "[java]": {
         "editor.defaultFormatter": "redhat.java"
     },
-    "bracketPairColorizer.depreciation-notice": false,
     "bookmarks.saveBookmarksInProject": true,
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
@@ -108,4 +115,7 @@
     "cSpell.userWords": [
         "Greve"
     ],
+    "vsicons.dontShowNewVersionMessage": true,
+    "clangd.path": "c:\\Users\\Stefan.Greve\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe",
+    "window.zoomLevel": 1,
 }
