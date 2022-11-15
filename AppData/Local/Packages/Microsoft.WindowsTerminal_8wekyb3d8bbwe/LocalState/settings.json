@@ -132,7 +132,6 @@
             "colorScheme": "AdvancedColors",
             "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
             "elevate": false,
-            "experimental.pixelShaderPath": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\crt.hlsl",
             "experimental.useAtlasEngine": true,
             "font":
             {
