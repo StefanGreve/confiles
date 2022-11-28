@@ -8,7 +8,7 @@
     "editor.renderControlCharacters": true,
     "editor.renderFinalNewline": true,
     "editor.minimap.enabled": false,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "editor.folding": true,
     "editor.showFoldingControls": "always",
     "editor.foldingStrategy": "indentation",
@@ -21,13 +21,10 @@
     ],
     "editor.tabSize": 4,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-        "source.organizeImports": true,
+        "source.fixAll.eslint": false,
+        "source.organizeImports": false,
     },
     "files.autoGuessEncoding": true,
-    "files.associations": {
-        "*.js": "javascriptreact"
-    },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "html.autoClosingTags": true,
@@ -109,13 +106,11 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "liveServer.settings.donotVerifyTags": true,
-    "liveServer.settings.donotShowInfoMsg": true,
     "workbench.startupEditor": "none",
     "cSpell.userWords": [
         "Greve"
     ],
     "vsicons.dontShowNewVersionMessage": true,
     "clangd.path": "c:\\Users\\Stefan.Greve\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe",
-    "window.zoomLevel": 1,
+    "python.defaultInterpreterPath": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
 }
