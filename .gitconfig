@@ -26,6 +26,8 @@
 	last = log -1 HEAD
 	graph = log --graph --oneline --decorate --abbrev-commit
 	purge = "!f(){ git restore . && git clean -f .; };f"
+    push-notes = push origin refs/notes/*
+    pull-notes = fetch origin refs/notes/*:refs/notes/*
 [http]
 	sslVerify = false
 [credential "https://git.swisslab.de"]
