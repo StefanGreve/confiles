@@ -28,6 +28,8 @@
 	purge = "!f(){ git restore . && git clean -f .; };f"
     push-notes = push origin refs/notes/*
     pull-notes = fetch origin refs/notes/*:refs/notes/*
+	ls-ignored = ls-files . --ignored --exclude-standard --others
+	ls-untracked = ls-files . --exclude-standard --others
 [http]
 	sslVerify = false
 [credential "https://git.swisslab.de"]
