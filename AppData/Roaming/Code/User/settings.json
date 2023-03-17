@@ -6,7 +6,7 @@
     "editor.renderWhitespace": "all",
     "editor.renderLineHighlight": "none",
     "editor.renderControlCharacters": true,
-    "editor.renderFinalNewline": true,
+    "editor.renderFinalNewline": "on",
     "editor.minimap.enabled": false,
     "editor.formatOnSave": false,
     "editor.folding": true,
@@ -34,6 +34,7 @@
     "typescript.suggest.autoImports": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "importCost.bundleSizeDecoration": "both",
     "git.inputValidationSubjectLength": 72,
     "telemetry.enableTelemetry": false,
     "extensions.ignoreRecommendations": true,
@@ -107,10 +108,18 @@
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "workbench.startupEditor": "none",
-    "cSpell.userWords": [
-        "Greve"
-    ],
     "vsicons.dontShowNewVersionMessage": true,
-    "clangd.path": "c:\\Users\\Stefan.Greve\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe",
     "python.defaultInterpreterPath": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "liveServer.settings.donotVerifyTags": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "gitlens.graph.experimental.minimap.enabled": true,
 }
