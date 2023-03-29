@@ -34,6 +34,8 @@
 	sslVerify = false
 [credential "https://git.swisslab.de"]
 	provider = bitbucket
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
 [safe]
 	directory = *
 [help]
