@@ -122,4 +122,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "gitlens.graph.experimental.minimap.enabled": true,
+    "files.associations": {
+        "*.scss": "scss"
+    },
 }
