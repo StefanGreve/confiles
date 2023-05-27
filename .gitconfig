@@ -1,11 +1,11 @@
 [user]
-	email = greve.stefan@outlook.jp
-	name = StefanGreve
-	signingkey = F380062B9F847687
+    email = greve.stefan@outlook.jp
+    name = StefanGreve
+    signingkey = F380062B9F847687
 [core]
-	editor = nvim
-	autocrlf = false
-	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+    editor = nvim
+    autocrlf = false
+    sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
     pager = "delta --syntax-theme='Solarized (dark)' --dark"
 [interactive]
     diffFilter = delta --color-only --features=interactive
@@ -20,31 +20,33 @@
 [blame]
     hyperlinks = true
 [init]
-	defaultBranch = master
+    defaultBranch = master
 [alias]
-	unstage = reset HEAD --
-	uncommit = reset --soft HEAD^1
-	last = log -1 HEAD
-	graph = log --graph --oneline --decorate --abbrev-commit
-	purge = "!f(){ git restore . && git clean -f .; };f"
+    unstage = reset HEAD --
+    uncommit = reset --soft HEAD^1
+    last = log -1 HEAD
+    graph = log --graph --oneline --decorate --abbrev-commit
+    purge = "!f(){ git restore . && git clean -f .; };f"
     push-notes = push origin refs/notes/*
     pull-notes = fetch origin refs/notes/*:refs/notes/*
-	ls-ignored = ls-files . --ignored --exclude-standard --others
-	ls-untracked = ls-files . --exclude-standard --others
+    ls-ignored = ls-files . --ignored --exclude-standard --others
+    ls-untracked = ls-files . --exclude-standard --others
 [http]
-	sslverify = true
+    sslverify = true
 [credential "https://git.swisslab.de"]
-	provider = bitbucket
+    provider = bitbucket
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+[url "https://github.com/rust-lang/crates.io-index"]
+    insteadOf = https://github.com/rust-lang/crates.io-index
 [safe]
-	directory = *
+    directory = *
 [help]
-	autocorrect = 30
-	format = html
+    autocorrect = 30
+    format = html
 [credential]
-	helper = cache
+    helper = cache
 [commit]
-	gpgsign = true
+    gpgsign = true
 [gpg]
-	program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
+    program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
