@@ -33,8 +33,6 @@
     ls-untracked = ls-files . --exclude-standard --others
 [http]
     sslverify = true
-[credential "https://git.swisslab.de"]
-    provider = bitbucket
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
 [url "https://github.com/rust-lang/crates.io-index"]
