@@ -1,8 +1,18 @@
 # Windows Dotfiles Repository
 
-Configuration files for various utility programs geared towards Windows 10 developers.
+Configuration files for various utility programs geared towards Windows 10 power users.
 
-## Consume Settings
+## Prerequisites
+
+The git configuration uses `git-delta` as a diff tool which can be installed with cargo:
+
+```powershell
+winget install --id rustlang.rustup
+# see also: https://github.com/dandavison/delta/issues/1409
+cargo install --git https://github.com/dandavison/delta.git
+```
+
+## Bootstrapping
 
 ```powershell
 # clone confiles as bare repository to destop/repos
@@ -18,4 +28,19 @@ config config --local status.showUntrackedFiles no
 
 # update settings
 config pull
+```
+
+## Custom Settings
+
+If you also want to use GPG signing, override my default settings using your key:
+
+```powershell
+gpg --import <key>.asc
+git config --global user.signingkey = <key_id>
+```
+
+To disable GPG signing on all commits, run:
+
+```powershell
+git config --global commit.gpgsign false
 ```
