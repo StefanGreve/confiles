@@ -24,6 +24,14 @@ Conduct initial plugin installation:
 vim pluginstall from command line
 ```
 
+Depending how you have installed `pwsh`, you may need to set this symbolic so that
+the Windows Terminal can find the PowerShell Core executable where it expect it to be:
+
+```powershell
+$Pwsh = "C:\Program Files\WindowsApps\Microsoft.PowerShell_7.3.4.0_x64__8wekyb3d8bbwe\pwsh.exe"
+New-Item -Path "C:\Program Files\PowerShell\7\pwsh.exe" -ItemType SymbolicLink -Value $Pwsh
+```
+
 ## Bootstrapping
 
 ```powershell
