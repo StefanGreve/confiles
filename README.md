@@ -4,12 +4,24 @@ Configuration files for various utility programs geared towards Windows 10 power
 
 ## Prerequisites
 
-The git configuration uses `git-delta` as a diff tool which can be installed with cargo:
+The git configuration uses `git-delta` as a diff tool which can be installed with cargo.
+(See also: https://github.com/dandavison/delta/issues/1409):
 
 ```powershell
 winget install --id rustlang.rustup
-# see also: https://github.com/dandavison/delta/issues/1409
 cargo install --git https://github.com/dandavison/delta.git
+```
+
+Install [`vim-plug`](https://github.com/junegunn/vim-plug):
+
+```powershell
+Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $env:LOCALAPPDATA/nvim/autoload/plug.vim -Force
+```
+
+Conduct initial plugin installation:
+
+```powershell
+vim pluginstall from command line
 ```
 
 ## Bootstrapping
