@@ -7,6 +7,8 @@
     autocrlf = false
     sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
     pager = "delta --syntax-theme='Solarized (dark)' --dark"
+	packedGitLimit = 512m
+	packedGitWindowSize = 512m
 [interactive]
     diffFilter = delta --color-only --features=interactive
 [delta]
@@ -48,3 +50,7 @@
     gpgsign = true
 [gpg]
     program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
+[pack]
+	deltaCacheSize = 2047m
+	packSizeLimit = 2047m
+	windowMemory = 2047m
