@@ -1,117 +1,103 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
-    [
+    "actions": [
         {
-            "command":
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
-        },
-        {
-            "command":
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "right"
             },
             "keys": "ctrl+shift+\\"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "command":
-            {
-                "action": "newTab"
-            },
-            "keys": "ctrl+t"
-        },
-        {
-            "command":
-            {
-                "action": "closeTab"
-            },
-            "keys": "ctrl+w"
-        },
-        {
-            "command":
-            {
-                "action": "resizePane",
-                "direction": "left"
-            },
-            "keys": "ctrl+shift+h"
-        },
-        {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "down"
             },
             "keys": "ctrl+j"
         },
         {
-            "command":
-            {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": {
                 "action": "splitPane",
                 "split": "down"
             },
             "keys": "ctrl+shift+minus"
         },
         {
-            "command":
-            {
+            "command": {
+                "action": "newTab"
+            },
+            "keys": "ctrl+t"
+        },
+        {
+            "command": {
+                "action": "closeTab"
+            },
+            "keys": "ctrl+w"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "left"
+            },
+            "keys": "ctrl+shift+h"
+        },
+        {
+            "command": {
                 "action": "moveFocus",
                 "direction": "left"
             },
             "keys": "ctrl+h"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "up"
             },
             "keys": "ctrl+k"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "keys": "ctrl+l"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "down"
             },
             "keys": "ctrl+shift+j"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "up"
             },
             "keys": "ctrl+shift+k"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "right"
             },
             "keys": "ctrl+shift+l"
-        },
-        {
-            "command": "find",
-            "keys": "ctrl+shift+f"
         },
         {
             "command": "closePane",
@@ -124,23 +110,19 @@
     "experimental.detectURLs": true,
     "language": "en-US",
     "launchMode": "maximized",
-    "profiles":
-    {
-        "defaults":
-        {
+    "profiles": {
+        "defaults": {
             "backgroundImageOpacity": 0.5,
             "colorScheme": "AdvancedColors",
             "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
             "elevate": false,
-            "experimental.useAtlasEngine": true,
-            "font":
-            {
+            "font": {
                 "face": "Cascadia Mono",
-                "size": 12
+                "size": 12.0
             },
             "hidden": false,
             "historySize": 9001,
-            "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
+            "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
             "name": "PowerShell Core",
             "opacity": 100,
             "padding": "5, 5, 0, 0",
@@ -150,14 +132,13 @@
             "tabTitle": "PowerShell Core",
             "useAcrylic": true
         },
-        "list":
-        [
+        "list": [
             {
                 "colorScheme": "AdvancedColors",
                 "commandline": "powershell.exe -NoLogo",
                 "guid": "{f486cf1d-1994-4db1-a49d-2ca5b6318c76}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
+                "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
                 "name": "PowerShell",
                 "tabColor": "#1E2127",
                 "tabTitle": "PowerShell"
@@ -167,7 +148,7 @@
                 "commandline": "C:\\Windows\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\cmd_prompt.png",
+                "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\cmd_prompt.png",
                 "name": "Command Prompt",
                 "tabColor": "#161719",
                 "tabTitle": "CMD"
@@ -187,30 +168,24 @@
                 "commandline": "C:\\Windows\\system32\\wsl.exe",
                 "guid": "{f377d379-3a08-4f88-b40d-f7405db11a77}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\linux.png",
+                "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\linux.png",
                 "name": "WSL",
                 "tabColor": "#161719",
                 "tabTitle": "WSL"
             },
             {
                 "colorScheme": "cyberpunk",
-                "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+                "commandline": "%LOCALAPPDATA%\\Programs\\Python\\Python312\\python.exe",
                 "guid": "{6ee2d370-4f6a-4a55-a0ad-8afdbc68d6ca}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\python.png",
+                "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\python.png",
                 "name": "Python",
                 "tabColor": "#332A57",
                 "tabTitle": "Python"
-            },
-            {
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "PowerShell Core"
             }
         ]
     },
-    "schemes":
-    [
+    "schemes": [
         {
             "background": "#1E2127",
             "black": "#55544E",
@@ -488,6 +463,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -534,5 +532,6 @@
             "yellow": "#FFFA6A"
         }
     ],
-    "theme": "dark"
+    "theme": "dark",
+    "themes": []
 }
