@@ -127,10 +127,11 @@
             "opacity": 100,
             "padding": "5, 5, 0, 0",
             "snapOnInput": true,
-            "startingDirectory": "%USERPROFILE%",
+            "startingDirectory": "%USERPROFILE%\\Desktop",
             "tabColor": "#1E2127",
             "tabTitle": "PowerShell Core",
-            "useAcrylic": true
+            "useAcrylic": true,
+            "bellSound": "none"
         },
         "list": [
             {
