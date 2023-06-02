@@ -183,11 +183,21 @@
                 "tabTitle": "Git Bash"
             },
             {
+                "colorScheme": "Atom",
+                "commandline": "C:\\Windows\\system32\\wsl.exe",
+                "guid": "{f377d379-3a08-4f88-b40d-f7405db11a77}",
+                "hidden": false,
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\linux.png",
+                "name": "WSL",
+                "tabColor": "#161719",
+                "tabTitle": "WSL"
+            },
+            {
                 "colorScheme": "cyberpunk",
-                "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+                "commandline": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
                 "guid": "{6ee2d370-4f6a-4a55-a0ad-8afdbc68d6ca}",
                 "hidden": false,
-                "icon": "C:\\Users\\Stefan.Greve\\AppData\\Local\\Programs\\Python\\Python310\\DLLs\\py.ico",
+                "icon": "C:\\Users\\Stefan.Greve\\Settings\\WindowsTerminalAssets\\Icons\\python.png",
                 "name": "Python",
                 "tabColor": "#332A57",
                 "tabTitle": "Python"
