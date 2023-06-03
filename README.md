@@ -21,7 +21,7 @@ Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vi
 Conduct initial plugin installation:
 
 ```powershell
-vim pluginstall from command line
+nvim +'PlugInstall --sync' +qa
 ```
 
 Depending how you have installed `pwsh`, you may need to set this symbolic so that
