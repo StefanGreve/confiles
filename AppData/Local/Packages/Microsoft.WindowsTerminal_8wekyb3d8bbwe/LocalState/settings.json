@@ -1,99 +1,113 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
+    "actions":
+    [
         {
-            "command": {
-                "action": "splitPane",
-                "split": "right"
-            },
-            "keys": "ctrl+shift+\\"
-        },
-        {
-            "command": {
-                "action": "moveFocus",
-                "direction": "down"
-            },
-            "keys": "ctrl+j"
-        },
-        {
-            "command": {
+            "command":
+            {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
         },
         {
+            "command":
+            {
+                "action": "splitPane",
+                "split": "right"
+            },
+            "keys": "ctrl+shift+|"
+        },
+        {
+            "command":
+            {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "keys": "ctrl+j"
+        },
+        {
             "command": "paste",
             "keys": "ctrl+v"
         },
         {
-            "command": {
+            "command":
+            {
+                "action": "newTab"
+            },
+            "keys": "ctrl+t"
+        },
+        {
+            "command":
+            {
                 "action": "splitPane",
                 "split": "down"
             },
             "keys": "ctrl+shift+minus"
         },
         {
-            "command": {
-                "action": "newTab"
-            },
-            "keys": "ctrl+t"
-        },
-        {
-            "command": {
+            "command":
+            {
                 "action": "closeTab"
             },
             "keys": "ctrl+w"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": {
+            "command":
+            {
                 "action": "resizePane",
                 "direction": "left"
             },
             "keys": "ctrl+shift+h"
         },
         {
-            "command": {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command":
+            {
                 "action": "moveFocus",
                 "direction": "left"
             },
             "keys": "ctrl+h"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "moveFocus",
                 "direction": "up"
             },
             "keys": "ctrl+k"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "keys": "ctrl+l"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "resizePane",
                 "direction": "down"
             },
             "keys": "ctrl+shift+j"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "resizePane",
                 "direction": "up"
             },
             "keys": "ctrl+shift+k"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "resizePane",
                 "direction": "right"
             },
@@ -110,13 +124,20 @@
     "experimental.detectURLs": true,
     "language": "en-US",
     "launchMode": "maximized",
-    "profiles": {
-        "defaults": {
+    "profiles":
+    {
+        "defaults":
+        {
             "backgroundImageOpacity": 0.5,
+            "bellSound":
+            [
+                "none"
+            ],
             "colorScheme": "AdvancedColors",
             "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
             "elevate": false,
-            "font": {
+            "font":
+            {
                 "face": "Cascadia Mono",
                 "size": 12.0
             },
@@ -130,10 +151,10 @@
             "startingDirectory": "%USERPROFILE%\\Desktop",
             "tabColor": "#1E2127",
             "tabTitle": "PowerShell Core",
-            "useAcrylic": true,
-            "bellSound": "none"
+            "useAcrylic": true
         },
-        "list": [
+        "list":
+        [
             {
                 "colorScheme": "AdvancedColors",
                 "commandline": "powershell.exe -NoLogo",
@@ -183,10 +204,17 @@
                 "name": "Python",
                 "tabColor": "#332A57",
                 "tabTitle": "Python"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "name": "PowerShell Core",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
-    "schemes": [
+    "schemes":
+    [
         {
             "background": "#1E2127",
             "black": "#55544E",
