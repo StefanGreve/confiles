@@ -12,11 +12,19 @@
             ]
         }
     },
+    "uninstallBehavior": {
+        "purgePortablePackage": true
+    },
+    "network": {
+        "downloader": "do"
+    },
     "telemetry": {
         "disable": true
     },
     "experimentalFeatures": {
         "directMSI": true,
-        "dependencies": true
+        "dependencies": true,
+        "configuration": true,
+        "windowsFeature": true
     }
 }
