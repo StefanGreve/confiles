@@ -18,10 +18,16 @@ Install [`vim-plug`](https://github.com/junegunn/vim-plug):
 Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $env:LOCALAPPDATA/nvim/autoload/plug.vim -Force
 ```
 
-Conduct initial plugin installation:
+Perform initial plugin installation:
 
 ```powershell
 nvim +'PlugInstall --sync' +qa
+```
+
+Install CoC dependencies:
+
+```powershell
+nvim +'call coc#util#install()' +qa
 ```
 
 Depending how you have installed `pwsh`, you may need to set this symbolic so that
