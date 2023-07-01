@@ -49,7 +49,7 @@
 [commit]
     gpgsign = true
 [gpg]
-    program = C:/Users/stefan.greve/scripts/gpg-pinentry-loopback.sh
+    program = C:/Program Files (x86)/GnuPG/bin/gpg.exe
 [pack]
 	deltaCacheSize = 2047m
 	packSizeLimit = 2047m
