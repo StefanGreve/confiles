@@ -135,7 +135,7 @@
             ],
             "colorScheme": "AdvancedColors",
             "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
-            "elevate": false,
+            "elevate": true,
             "font":
             {
                 "face": "Cascadia Mono",
