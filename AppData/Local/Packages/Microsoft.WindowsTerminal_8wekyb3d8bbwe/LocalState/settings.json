@@ -1,27 +1,23 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
-    [
+    "actions": [
         {
-            "command":
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "right"
             },
             "keys": "ctrl+shift+|"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "down"
             },
@@ -32,30 +28,26 @@
             "keys": "ctrl+v"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "newTab"
             },
             "keys": "ctrl+t"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "down"
             },
             "keys": "ctrl+shift+minus"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "closeTab"
             },
             "keys": "ctrl+w"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "left"
             },
@@ -66,48 +58,42 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "left"
             },
             "keys": "ctrl+h"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "up"
             },
             "keys": "ctrl+k"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "keys": "ctrl+l"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "down"
             },
             "keys": "ctrl+shift+j"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "up"
             },
             "keys": "ctrl+shift+k"
         },
         {
-            "command":
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "right"
             },
@@ -124,46 +110,41 @@
     "experimental.detectURLs": true,
     "language": "en-US",
     "launchMode": "maximized",
-    "profiles":
-    {
-        "defaults":
-        {
+    "profiles": {
+        "defaults": {
             "backgroundImageOpacity": 0.5,
-            "bellSound":
-            [
+            "bellSound": [
                 "none"
             ],
-            "colorScheme": "AdvancedColors",
+            "colorScheme": "PowerShellDark",
             "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -NoLogo",
             "elevate": true,
-            "font":
-            {
+            "font": {
                 "face": "Cascadia Mono",
                 "size": 12.0
             },
             "hidden": false,
             "historySize": 9001,
             "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\powershell-core.ico",
-            "name": "PowerShell Core",
+            "name": "PowerShell",
             "opacity": 100,
             "padding": "5, 5, 0, 0",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%\\Desktop",
             "tabColor": "#1E2127",
-            "tabTitle": "PowerShell Core",
+            "tabTitle": "PowerShell",
             "useAcrylic": true
         },
-        "list":
-        [
+        "list": [
             {
-                "colorScheme": "AdvancedColors",
+                "colorScheme": "AdventureTime",
                 "commandline": "powershell.exe -NoLogo",
-                "guid": "{f486cf1d-1994-4db1-a49d-2ca5b6318c76}",
+                "guid": "{eef40fca-41a1-4efc-8d15-da1f78909254}",
                 "hidden": false,
                 "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\powershell.png",
-                "name": "PowerShell",
-                "tabColor": "#1E2127",
-                "tabTitle": "PowerShell"
+                "name": "Windows PowerShell",
+                "tabColor": "#1f1d45",
+                "tabTitle": "Windows PowerShell"
             },
             {
                 "colorScheme": "Atom",
@@ -197,25 +178,19 @@
             },
             {
                 "colorScheme": "cyberpunk",
-                "commandline": "%LOCALAPPDATA%\\Programs\\Python\\Python312\\python.exe",
+                "commandline": "%LOCALAPPDATA%\\Programs\\Python\\Python311\\python.exe",
                 "guid": "{6ee2d370-4f6a-4a55-a0ad-8afdbc68d6ca}",
                 "hidden": false,
                 "icon": "%USERPROFILE%\\Settings\\WindowsTerminalAssets\\Icons\\python.png",
                 "name": "Python",
                 "tabColor": "#332A57",
                 "tabTitle": "Python"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "PowerShell Core",
-                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
-    "schemes":
-    [
+    "schemes": [
         {
+            "name": "PowerShellDark",
             "background": "#1E2127",
             "black": "#55544E",
             "blue": "#327DC3",
@@ -231,7 +206,6 @@
             "cyan": "#15CDCB",
             "foreground": "#D2D8D9",
             "green": "#06D6A0",
-            "name": "AdvancedColors",
             "purple": "#916CCF",
             "red": "#B9272C",
             "selectionBackground": "#FFFFFF",
@@ -239,29 +213,53 @@
             "yellow": "#FFE45E"
         },
         {
-            "background": "#52205F",
-            "black": "#55544E",
-            "blue": "#327DC3",
-            "brightBlack": "#7F7E76",
-            "brightBlue": "#6DA5D9",
-            "brightCyan": "#46ECE9",
-            "brightGreen": "#38FAC6",
-            "brightPurple": "#C5B2E6",
-            "brightRed": "#DB575B",
+            "name": "PowerShellLight",
+            "background": "#F9F9F9",
+            "black": "#000000",
+            "blue": "#2F5AF3",
+            "brightBlack": "#000000",
+            "brightBlue": "#2F5AF3",
+            "brightCyan": "#3F953A",
+            "brightGreen": "#3F953A",
+            "brightPurple": "#a00095",
+            "brightRed": "#DE3E35",
             "brightWhite": "#FFFFFF",
-            "brightYellow": "#FFF1AD",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#15CDCB",
-            "foreground": "#D2D8D9",
-            "green": "#06D6A0",
-            "name": "AdvancedColorsCore",
-            "purple": "#916CCF",
-            "red": "#B9272C",
-            "selectionBackground": "#FFFFFF",
-            "white": "#FDFFFC",
-            "yellow": "#FFE45E"
+            "brightYellow": "#D2B67C",
+            "cursorColor": "#BBBBBB",
+            "cyan": "#3F953A",
+            "foreground": "#2A2C33",
+            "green": "#3F953A",
+            "purple": "#950095",
+            "red": "#DE3E35",
+            "selectionBackground": "#EDEDED",
+            "yellow": "#D2B67C",
+            "white": "#BBBBBB"
         },
         {
+            "name": "AdventureTime",
+            "background": "#1F1D45",
+            "black": "#050404",
+            "blue": "#0F4AC6",
+            "brightBlack": "#4E7CBF",
+            "brightBlue": "#1997C6",
+            "brightCyan": "#C8FAF4",
+            "brightGreen": "#9EFF6E",
+            "brightPurple": "#9B5953",
+            "brightRed": "#FC5F5A",
+            "brightWhite": "#F6F5FB",
+            "brightYellow": "#EFC11A",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#70A598",
+            "foreground": "#F8DCC0",
+            "green": "#4AB118",
+            "purple": "#665993",
+            "red": "#BD0013",
+            "selectionBackground": "#FFFFFF",
+            "white": "#F8DCC0",
+            "yellow": "#E7741E"
+        },
+        {
+            "name": "Atom",
             "background": "#161719",
             "black": "#000000",
             "blue": "#85BEFD",
@@ -277,7 +275,6 @@
             "cyan": "#85BEFD",
             "foreground": "#C5C8C6",
             "green": "#87C38A",
-            "name": "Atom",
             "purple": "#B9B6FC",
             "red": "#FD5FF1",
             "selectionBackground": "#FFFFFF",
@@ -285,190 +282,7 @@
             "yellow": "#FFD7B1"
         },
         {
-            "background": "#0C0C0C",
-            "black": "#0C0C0C",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#3B78FF",
-            "brightCyan": "#61D6D6",
-            "brightGreen": "#16C60C",
-            "brightPurple": "#B4009E",
-            "brightRed": "#E74856",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#F9F1A5",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#CCCCCC",
-            "green": "#13A10E",
-            "name": "Campbell",
-            "purple": "#881798",
-            "red": "#C50F1F",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#C19C00"
-        },
-        {
-            "background": "#012456",
-            "black": "#0C0C0C",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#3B78FF",
-            "brightCyan": "#61D6D6",
-            "brightGreen": "#16C60C",
-            "brightPurple": "#B4009E",
-            "brightRed": "#E74856",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#F9F1A5",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#CCCCCC",
-            "green": "#13A10E",
-            "name": "Campbell Powershell",
-            "purple": "#881798",
-            "red": "#C50F1F",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#C19C00"
-        },
-        {
-            "background": "#282C34",
-            "black": "#282C34",
-            "blue": "#61AFEF",
-            "brightBlack": "#5A6374",
-            "brightBlue": "#61AFEF",
-            "brightCyan": "#56B6C2",
-            "brightGreen": "#98C379",
-            "brightPurple": "#C678DD",
-            "brightRed": "#E06C75",
-            "brightWhite": "#DCDFE4",
-            "brightYellow": "#E5C07B",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#56B6C2",
-            "foreground": "#DCDFE4",
-            "green": "#98C379",
-            "name": "One Half Dark",
-            "purple": "#C678DD",
-            "red": "#E06C75",
-            "selectionBackground": "#FFFFFF",
-            "white": "#DCDFE4",
-            "yellow": "#E5C07B"
-        },
-        {
-            "background": "#FAFAFA",
-            "black": "#383A42",
-            "blue": "#0184BC",
-            "brightBlack": "#4F525D",
-            "brightBlue": "#61AFEF",
-            "brightCyan": "#56B5C1",
-            "brightGreen": "#98C379",
-            "brightPurple": "#C577DD",
-            "brightRed": "#DF6C75",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#E4C07A",
-            "cursorColor": "#4F525D",
-            "cyan": "#0997B3",
-            "foreground": "#383A42",
-            "green": "#50A14F",
-            "name": "One Half Light",
-            "purple": "#A626A4",
-            "red": "#E45649",
-            "selectionBackground": "#FFFFFF",
-            "white": "#FAFAFA",
-            "yellow": "#C18301"
-        },
-        {
-            "background": "#002B36",
-            "black": "#002B36",
-            "blue": "#268BD2",
-            "brightBlack": "#073642",
-            "brightBlue": "#839496",
-            "brightCyan": "#93A1A1",
-            "brightGreen": "#586E75",
-            "brightPurple": "#6C71C4",
-            "brightRed": "#CB4B16",
-            "brightWhite": "#FDF6E3",
-            "brightYellow": "#657B83",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#2AA198",
-            "foreground": "#839496",
-            "green": "#859900",
-            "name": "Solarized Dark",
-            "purple": "#D33682",
-            "red": "#DC322F",
-            "selectionBackground": "#FFFFFF",
-            "white": "#EEE8D5",
-            "yellow": "#B58900"
-        },
-        {
-            "background": "#FDF6E3",
-            "black": "#002B36",
-            "blue": "#268BD2",
-            "brightBlack": "#073642",
-            "brightBlue": "#839496",
-            "brightCyan": "#93A1A1",
-            "brightGreen": "#586E75",
-            "brightPurple": "#6C71C4",
-            "brightRed": "#CB4B16",
-            "brightWhite": "#FDF6E3",
-            "brightYellow": "#657B83",
-            "cursorColor": "#002B36",
-            "cyan": "#2AA198",
-            "foreground": "#657B83",
-            "green": "#859900",
-            "name": "Solarized Light",
-            "purple": "#D33682",
-            "red": "#DC322F",
-            "selectionBackground": "#FFFFFF",
-            "white": "#EEE8D5",
-            "yellow": "#B58900"
-        },
-        {
-            "background": "#000000",
-            "black": "#000000",
-            "blue": "#3465A4",
-            "brightBlack": "#555753",
-            "brightBlue": "#729FCF",
-            "brightCyan": "#34E2E2",
-            "brightGreen": "#8AE234",
-            "brightPurple": "#AD7FA8",
-            "brightRed": "#EF2929",
-            "brightWhite": "#EEEEEC",
-            "brightYellow": "#FCE94F",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#06989A",
-            "foreground": "#D3D7CF",
-            "green": "#4E9A06",
-            "name": "Tango Dark",
-            "purple": "#75507B",
-            "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
-            "white": "#D3D7CF",
-            "yellow": "#C4A000"
-        },
-        {
-            "background": "#FFFFFF",
-            "black": "#000000",
-            "blue": "#3465A4",
-            "brightBlack": "#555753",
-            "brightBlue": "#729FCF",
-            "brightCyan": "#34E2E2",
-            "brightGreen": "#8AE234",
-            "brightPurple": "#AD7FA8",
-            "brightRed": "#EF2929",
-            "brightWhite": "#EEEEEC",
-            "brightYellow": "#FCE94F",
-            "cursorColor": "#000000",
-            "cyan": "#06989A",
-            "foreground": "#555753",
-            "green": "#4E9A06",
-            "name": "Tango Light",
-            "purple": "#75507B",
-            "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
-            "white": "#D3D7CF",
-            "yellow": "#C4A000"
-        },
-        {
+            "name": "Ubuntu",
             "background": "#300A24",
             "black": "#2E3436",
             "blue": "#3465A4",
@@ -484,7 +298,6 @@
             "cyan": "#06989A",
             "foreground": "#EEEEEC",
             "green": "#4E9A06",
-            "name": "Ubuntu",
             "purple": "#75507B",
             "red": "#CC0000",
             "selectionBackground": "#FFFFFF",
@@ -492,52 +305,7 @@
             "yellow": "#C4A000"
         },
         {
-            "background": "#300A24",
-            "black": "#171421",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#08458F",
-            "brightCyan": "#2C9FB3",
-            "brightGreen": "#26A269",
-            "brightPurple": "#A347BA",
-            "brightRed": "#C01C28",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#A2734C",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#FFFFFF",
-            "green": "#26A269",
-            "name": "Ubuntu-ColorScheme",
-            "purple": "#881798",
-            "red": "#C21A23",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#A2734C"
-        },
-        {
-            "background": "#000000",
-            "black": "#000000",
-            "blue": "#000080",
-            "brightBlack": "#808080",
-            "brightBlue": "#0000FF",
-            "brightCyan": "#00FFFF",
-            "brightGreen": "#00FF00",
-            "brightPurple": "#FF00FF",
-            "brightRed": "#FF0000",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#FFFF00",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#008080",
-            "foreground": "#C0C0C0",
-            "green": "#008000",
-            "name": "Vintage",
-            "purple": "#800080",
-            "red": "#800000",
-            "selectionBackground": "#FFFFFF",
-            "white": "#C0C0C0",
-            "yellow": "#808000"
-        },
-        {
+            "name": "cyberpunk",
             "background": "#332A57",
             "black": "#000000",
             "blue": "#00BFFF",
@@ -553,7 +321,6 @@
             "cyan": "#86CBFE",
             "foreground": "#E5E5E5",
             "green": "#00FBAC",
-            "name": "cyberpunk",
             "purple": "#DF95FF",
             "red": "#FF7092",
             "selectionBackground": "#FFFFFF",
