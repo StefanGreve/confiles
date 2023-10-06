@@ -1,6 +1,8 @@
 # Windows Dotfiles Repository
 
-Configuration files for various utility programs geared towards Windows 10 power users.
+This repository is deprecated as of October 6, 2023. Windows-specific configuration
+files will be moved to the [`configuration`](https://github.com/stefangreve/configuration)
+repository.
 
 ## Prerequisites
 
